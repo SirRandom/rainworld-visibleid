@@ -2,11 +2,10 @@
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
 		<LangVersion>latest</LangVersion>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="BepInEx"              ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\core\BepInEx.dll</HintPath></Reference>
-		<Reference Include="Assembly-CSharp"      ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\utils\PUBLIC-Assembly-CSharp.dll</HintPath></Reference>
+		<Reference Include="Assembly-CSharp"      ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\utils\STRIPPED-Assembly-CSharp.dll</HintPath></Reference>
 		<Reference Include="HOOKS-Assembly-CSharp"><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\plugins\HOOKS-Assembly-CSharp.dll</HintPath></Reference>
 		<Reference Include="MonoMod"              ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\core\MonoMod.dll</HintPath></Reference>
 		<Reference Include="MonoMod.RuntimeDetour"><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\core\MonoMod.RuntimeDetour.dll</HintPath></Reference>
@@ -16,6 +15,6 @@
 		<Reference Include="UnityEngine"          ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\RainWorld_Data\Managed\UnityEngine.dll</HintPath></Reference>
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Copy SourceFiles="$(TargetDir)$(TargetName)$(TargetExt)" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Rain World\RainWorld_Data\StreamingAssets\mods\visibleid\plugins"/>
+		<Copy SourceFiles="$(TargetDir)$(TargetName)$(TargetExt)" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Rain World\RainWorld_Data\StreamingAssets\mods\$(TargetName)\plugins"/>
 	</Target>
 </Project>
