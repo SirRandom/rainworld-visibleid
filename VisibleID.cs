@@ -22,9 +22,11 @@ static class Extensions {
 		});
 }
 
-[BepInEx.BepInPlugin(ModId, "Visible ID", "2.0")]
+[BepInEx.BepInPlugin(ModId, "Visible ID", "2.1")]
 public class VisibleID: BepInEx.BaseUnityPlugin {
 	public const string ModId = $"{nameof(fish)}.{nameof(visibleid)}";
+	
+	public static VisibleID Instance { get; private set; }
 	
 	public static Dictionary<Creature, OverheadID> Labels { get; } = new();
 	public static Dictionary<(int, string), string> Names { get; } = new();
@@ -32,6 +34,8 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 	static bool cfg_init = false;
 	
 	public void Awake() {
+		Instance = this;
+		
 		On.Creature.Update += (o,s, eu) => { o(s, eu);
 			if((Cfg.ShowIDs.Value || Cfg.Attrs.Value) && s.room is not null && !Labels.ContainsKey(s)) new OverheadID(s);
 		};
@@ -53,12 +57,16 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		On.RainWorld.PostModsInit += (o,s) => { o(s); ReloadNames(); };
 	}
 	
-	static void ReloadNames() {
+	void ReloadNames() {
 		Names.Clear();
 			foreach(var e in Cfg.Names.Value.Split(';')) {
 				var triplet = e.Split(':');
 				if(int.TryParse(triplet[0], out int id))
-					Names.Add((id, triplet[2]), triplet[1]);
+					try {
+						Names.Add((id, triplet[2]), triplet[1]);
+					} catch(ArgumentException) {
+						Logger.LogWarning($"Tried to populate {nameof(Names)} dictionary with (id,type) pair that already exists!");
+					}
 			}
 	}
 	
@@ -95,10 +103,12 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		static Configurable<T> bind<T>(string name, T init, string desc) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, new ConfigurableInfo(desc));
 		
 		void AddName(int id, string name, string type) {
-			Names.Value += $";{id}:{name}:{type}";
-			if(Names.Value[0] is ';') Names.Value = Names.Value.Substring(1);
-			config.Save();
-			VisibleID.ReloadNames();
+			if(!VisibleID.Names.ContainsKey((id, type))) {
+				Names.Value += $";{id}:{name}:{type}";
+				if(Names.Value[0] is ';') Names.Value = Names.Value.Substring(1);
+				config.Save();
+				VisibleID.Instance.ReloadNames();
+			}
 		}
 		
 		void RemoveName(int id) {
@@ -114,7 +124,7 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 				var i = entries.IndexOf(tgt);
 				Names.Value = string.Join(";", entries.Take(i).Concat(entries.Skip(i+1)));
 				config.Save();
-				VisibleID.ReloadNames();
+				VisibleID.Instance.ReloadNames();
 			}
 		}
 		
