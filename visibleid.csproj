@@ -2,19 +2,23 @@
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
 		<LangVersion>latest</LangVersion>
+		<Configuration>Release</Configuration>
+	</PropertyGroup>
+	<PropertyGroup>
+		<rwroot>C:\Program Files (x86)\Steam\steamapps\common\Rain World</rwroot>
 	</PropertyGroup>
 	<ItemGroup>
-		<Reference Include="BepInEx"              ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\core\BepInEx.dll</HintPath></Reference>
-		<Reference Include="Assembly-CSharp"      ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\utils\STRIPPED-Assembly-CSharp.dll</HintPath></Reference>
-		<Reference Include="HOOKS-Assembly-CSharp"><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\plugins\HOOKS-Assembly-CSharp.dll</HintPath></Reference>
-		<Reference Include="MonoMod"              ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\core\MonoMod.dll</HintPath></Reference>
-		<Reference Include="MonoMod.RuntimeDetour"><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\core\MonoMod.RuntimeDetour.dll</HintPath></Reference>
-		<Reference Include="MonoMod.Utils"        ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\BepInEx\core\MonoMod.Utils.dll</HintPath></Reference>
-		<Reference Include="UnityEngine"          ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\RainWorld_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath></Reference>
-		<Reference Include="UnityEngine"          ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\RainWorld_Data\Managed\UnityEngine.CoreModule.dll</HintPath></Reference>
-		<Reference Include="UnityEngine"          ><HintPath>C:\Program Files (x86)\Steam\steamapps\common\Rain World\RainWorld_Data\Managed\UnityEngine.dll</HintPath></Reference>
+		<Reference Include="BepInEx"              ><HintPath>$(rwroot)\BepInEx\core\BepInEx.dll</HintPath></Reference>
+		<Reference Include="MonoMod"              ><HintPath>$(rwroot)\BepInEx\core\MonoMod.dll</HintPath></Reference>
+		<Reference Include="MonoMod.RuntimeDetour"><HintPath>$(rwroot)\BepInEx\core\MonoMod.RuntimeDetour.dll</HintPath></Reference>
+		<Reference Include="MonoMod.Utils"        ><HintPath>$(rwroot)\BepInEx\core\MonoMod.Utils.dll</HintPath></Reference>
+		<Reference Include="Assembly-CSharp"      ><HintPath>$(rwroot)\BepInEx\utils\STRIPPED-Assembly-CSharp.dll</HintPath></Reference>
+		<Reference Include="HOOKS-Assembly-CSharp"><HintPath>$(rwroot)\BepInEx\plugins\HOOKS-Assembly-CSharp.dll</HintPath></Reference>
+		<Reference Include="UnityEngine"          ><HintPath>$(rwroot)\RainWorld_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath></Reference>
+		<Reference Include="UnityEngine"          ><HintPath>$(rwroot)\RainWorld_Data\Managed\UnityEngine.CoreModule.dll</HintPath></Reference>
+		<Reference Include="UnityEngine"          ><HintPath>$(rwroot)\RainWorld_Data\Managed\UnityEngine.dll</HintPath></Reference>
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Copy SourceFiles="$(TargetDir)$(TargetName)$(TargetExt)" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Rain World\RainWorld_Data\StreamingAssets\mods\$(TargetName)\plugins"/>
+		<Copy SourceFiles="$(TargetDir)$(TargetName)$(TargetExt)" DestinationFolder="$(rwroot)\RainWorld_Data\StreamingAssets\mods\$(TargetName)\plugins"/>
 	</Target>
 </Project>
