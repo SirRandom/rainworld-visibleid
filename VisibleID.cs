@@ -117,17 +117,17 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		static Configurable<T> bind<T>(string name, T init, string desc) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, new ConfigurableInfo(desc));
 		
 		public override void Initialize() {
-			switch(mod.version) {
-				case "0200":
-				case "0201":
-					break;
-				default: break;
-			}
+			// switch(mod.version) {
+			// 	case "0200":
+			// 	case "0201":
+			// 		break;
+			// 	default: break;
+			// }
 			
 			Tabs = new[] {
 				new Menu.Remix.MixedUI.OpTab(this, "Main"),
 				new Menu.Remix.MixedUI.OpTab(this, "Names"),
-				new Menu.Remix.MixedUI.OpTab(this, "Inspect"),
+				//new Menu.Remix.MixedUI.OpTab(this, "Inspect"),
 			};
 			#region Tabs[0]
 				Tabs[0].AddItems(new Menu.Remix.MixedUI.UIelement[] {
