@@ -3,20 +3,26 @@ namespace fish.rainworld.visibleid;
 public class Cfg: OptionInterface {
 	Cfg() {}
 	public static Cfg Instance { get; } = new();
-	public static Configurable<KeyCode> ToggleID    { get; } = bind(nameof(ToggleID   ), Keys.Tab, "The key that should toggle ID display on and off");
-	public static Configurable<KeyCode> ToggleStats { get; } = bind(nameof(ToggleStats), Keys.End, "The key that should toggle personality & traits display on and off");
-	public static Configurable<bool>    ShowIDs     { get; } = bind(nameof(ShowIDs    ), false,    "Should ID labels be on at the start of the game?");
-	public static Configurable<bool>    Attrs       { get; } = bind(nameof(Attrs      ), false,    "Should the personality & skills readout be on at the start of the game?");
-	public static Configurable<bool>    Players     { get; } = bind(nameof(Players    ), true,     "Should we show ID labels for players?");
-	public static Configurable<bool>    PlyrAttr    { get; } = bind(nameof(PlyrAttr   ), false,    "Should we show personality traits for players?");
-	public static Configurable<bool>    Dead        { get; } = bind(nameof(Dead       ), false,    "Should labels disappear when the attached creature dies?");
 	
-	public static Configurable<string> Names { get; } = bind(nameof(Names), "");
-	
-	static Configurable<string> n_lbl  = new(Instance, null, "", null);
-	static Configurable<int>    n_id   = new(Instance, null, 0, null);
-	static Configurable<string> n_name = new(Instance, null, "", null);
-	static Configurable<string> n_crea = new(Instance, null, "", null);
+	#region Actual Configurables
+		public static Configurable<KeyCode> ToggleID    { get; } = bind(nameof(ToggleID   ), Keys.Tab, "The key that should toggle ID display on and off");
+		public static Configurable<KeyCode> ToggleStats { get; } = bind(nameof(ToggleStats), Keys.End, "The key that should toggle personality & traits display on and off");
+		public static Configurable<bool>    ShowIDs     { get; } = bind(nameof(ShowIDs    ), false,    "Should ID labels be on at the start of the game?");
+		public static Configurable<bool>    Attrs       { get; } = bind(nameof(Attrs      ), false,    "Should the personality & skills readout be on at the start of the game?");
+		public static Configurable<bool>    Players     { get; } = bind(nameof(Players    ), true,     "Should we show ID labels for players?");
+		public static Configurable<bool>    PlyrAttr    { get; } = bind(nameof(PlyrAttr   ), false,    "Should we show personality traits for players?");
+		public static Configurable<bool>    Dead        { get; } = bind(nameof(Dead       ), false,    "Should labels disappear when the attached creature dies?");
+		
+		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
+	#endregion
+	#region Cosmetic Configurables
+		static Configurable<string> n0_lbl  = new(Instance, null, "", null);
+		static Configurable<int>    n0_id   = new(Instance, null, 0, null);
+		static Configurable<string> n0_name = new(Instance, null, "", null);
+		static Configurable<string> n0_crea = new(Instance, null, "", null);
+		
+		static Configurable<int> n1_id = new(Instance, null, 0, null);
+	#endregion
 	
 	static Configurable<T> bind<T>(string name, T init) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init);
 	static Configurable<T> bind<T>(string name, T init, string desc) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, new ConfigurableInfo(desc));
@@ -50,9 +56,9 @@ public class Cfg: OptionInterface {
 		#endregion
 		#region Tabs[1]
 			var bad_red     = new UnityEngine.Color(.85f, .35f, .4f);
-			var tbx_id      = new Menu.Remix.MixedUI.OpTextBox(n_id, new(15f, 475f), 100f) { description = "Enter the creature ID that you wish to name" };
-			var tbx_name    = new Menu.Remix.MixedUI.OpTextBox(n_name, new(125f, 475f), 200f) { allowSpace = true, description = "What should this creature be named?" };
-			var cbx_crea    = new Menu.Remix.MixedUI.OpComboBox(n_crea, new(335f, 475f), 140f, new List<Menu.Remix.MixedUI.ListItem>(CreatureTemplate.Type.values.entries.Select(s => new Menu.Remix.MixedUI.ListItem(s)))) { description = "Select what type of creature this name should apply to" };
+			var tbx_id      = new Menu.Remix.MixedUI.OpTextBox(n0_id, new(15f, 475f), 100f) { description = "Enter the creature ID that you wish to name" };
+			var tbx_name    = new Menu.Remix.MixedUI.OpTextBox(n0_name, new(125f, 475f), 200f) { allowSpace = true, description = "What should this creature be named?" };
+			var cbx_crea    = new Menu.Remix.MixedUI.OpComboBox(n0_crea, new(335f, 475f), 140f, new List<Menu.Remix.MixedUI.ListItem>(CreatureTemplate.Type.values.entries.Select(s => new Menu.Remix.MixedUI.ListItem(s)))) { description = "Select what type of creature this name should apply to" };
 			var btn_add     = new Menu.Remix.MixedUI.OpSimpleButton(new(485f, 475f), new(40f, 24f), "add") { description = "Click to add the given name mapping" };
 			var btn_del     = new Menu.Remix.MixedUI.OpSimpleButton(new(535f, 475f), new(40f, 24f), "del") { description = "Click to remove the given name mapping" };
 			var btn_del_all = new Menu.Remix.MixedUI.OpHoldButton(new(515f, 515f), 10f, "del all") { description = "Click to remove all name mappings", colorEdge = bad_red, colorFill = bad_red };
