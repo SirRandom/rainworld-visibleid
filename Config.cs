@@ -16,12 +16,12 @@ public class Cfg: OptionInterface {
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	#endregion
 	#region Cosmetic Configurables
-		static Configurable<string> n0_lbl  = new(Instance, null, "", new(""));
-		static Configurable<int>    n0_id   = new(Instance, null,  0, new("What ID are we naming?"));
-		static Configurable<string> n0_name = new(Instance, null, "", new("Type a name for this creature"));
-		static Configurable<string> n0_crea = new(Instance, null, "", new("Select a creature type to associate with the name"));
+		static Configurable<string> n0_lbl  = new(Instance, null, "", null);
+		static Configurable<int>    n0_id   = new(Instance, null,  0, null);
+		static Configurable<string> n0_name = new(Instance, null, "", null);
+		static Configurable<string> n0_crea = new(Instance, null, "", null);
 		
-		static Configurable<int> n1_id = new(Instance, null, 0, new("Type an ID to inspect"));
+		static Configurable<int> n1_id = new(Instance, null, 0, null);
 	#endregion
 	
 	static Configurable<T> bind<T>(string name, T init) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init);
@@ -44,9 +44,9 @@ public class Cfg: OptionInterface {
 			Tabs[0].AddItems(new Menu.Remix.MixedUI.UIelement[] {
 				new Menu.Remix.MixedUI.OpLabel(10f, 550f, "Visible ID Options", true),
 				new Menu.Remix.MixedUI.OpLabel(20f, 500f, "Toggle ID Display", false),
-				new Menu.Remix.MixedUI.OpKeyBinder(ToggleID, new(250f, 492f), new(100f, 35f)),
+				new Menu.Remix.MixedUI.OpKeyBinder(ToggleID, new(250f, 492f), new(100f, 35f)) { description = "This button will toggle overhead ID & name labels" },
 				new Menu.Remix.MixedUI.OpLabel(20f, 450f, "Toggle Personality & Traits Display", false),
-				new Menu.Remix.MixedUI.OpKeyBinder(ToggleStats, new(250f, 442f), new(100f, 35f)),
+				new Menu.Remix.MixedUI.OpKeyBinder(ToggleStats, new(250f, 442f), new(100f, 35f)) { description = "This button will toggle the overhead personality & skills display" },
 			});
 			Tabs[0].AddLabeledCheckbox(ShowIDs,  new(20f, 390f));
 			Tabs[0].AddLabeledCheckbox(Attrs,    new(20f, 350f));
@@ -163,7 +163,7 @@ public class Cfg: OptionInterface {
 			});
 		#endregion
 		#region Tabs[2]
-			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(80f, 520f), 100f);
+			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(80f, 520f), 100f) { description = "Type an ID number to inspect its stats" };
 			var inspect_lbls = new Menu.Remix.MixedUI.OpLabel[] {
 				new(10f, 320f, "Type in the field to show stats for a given ID number"),
 				new(170f, 460f, "0"),
