@@ -27,8 +27,6 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 	
 	public static VisibleID Instance { get; private set; }
 	
-	public static System.Runtime.CompilerServices.ConditionalWeakTable<Creature, OverheadID> LabelsEx { get; } = new();
-	
 	public static Dictionary<Creature, OverheadID> Labels { get; } = new();
 	public static Dictionary<(int, string), string> Names { get; } = new();
 	
