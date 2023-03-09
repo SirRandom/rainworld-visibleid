@@ -163,7 +163,7 @@ public class Cfg: OptionInterface {
 			});
 		#endregion
 		#region Tabs[2]
-			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(15f, 475f), 100f);
+			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(15f, 520f), 100f);
 			var lbl_id = new Menu.Remix.MixedUI.OpLabel[] {
 				new(30f, 500f, ""),
 				new(30f, 480f, ""),
@@ -196,17 +196,17 @@ public class Cfg: OptionInterface {
 #pragma warning restore CS0618
 					
 					lbl_id[ 0].text = $"ID: {id}";
-					lbl_id[ 1].text = $"Aggression  (agg): {personality.aggression}";
-					lbl_id[ 2].text = $"Bravery     (brv): {personality.bravery}";
-					lbl_id[ 3].text = $"Dominance   (dom): {personality.dominance}";
-					lbl_id[ 4].text = $"Energy      (nrg): {personality.energy}";
-					lbl_id[ 5].text = $"Nervousness (nrv): {personality.nervous}";
-					lbl_id[ 6].text = $"Sympathy    (sym): {personality.sympathy}";
-					lbl_id[ 7].text = $"Skill: Dodge     (dge): {dge}";
-					lbl_id[ 8].text = $"Skill: Mid-Range (mid): {mid}";
-					lbl_id[ 9].text = $"Skill: Melee     (mle): {mle}";
-					lbl_id[10].text = $"Skill: Blocking  (blk): {blk}";
-					lbl_id[11].text = $"Skill: Reaction  (rea): {rea}";
+					lbl_id[ 1].text = $"(agg) Aggression: {personality.aggression}";
+					lbl_id[ 2].text = $"(brv) Bravery: {personality.bravery}";
+					lbl_id[ 3].text = $"(dom) Dominance: {personality.dominance}";
+					lbl_id[ 4].text = $"(nrg) Energy: {personality.energy}";
+					lbl_id[ 5].text = $"(nrv) Nervousness: {personality.nervous}";
+					lbl_id[ 6].text = $"(sym) Sympathy: {personality.sympathy}";
+					lbl_id[ 7].text = $"(dge) Skill: Dodge: {dge}";
+					lbl_id[ 8].text = $"(mid) Skill: Mid-Range: {mid}";
+					lbl_id[ 9].text = $"(mle) Skill: Melee: {mle}";
+					lbl_id[10].text = $"(blk) Skill: Blocking: {blk}";
+					lbl_id[11].text = $"(rea) Skill: Reaction: {rea}";
 				} else
 					foreach(var lbl in lbl_id) lbl.text = "";
 			};
