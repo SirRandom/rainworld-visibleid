@@ -60,15 +60,16 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 	
 	public void ReloadNames() {
 		Names.Clear();
-			foreach(var e in Cfg.Names.Value.Split(';')) {
-				var triplet = e.Split(':');
-				if(int.TryParse(triplet[0], out int id))
-					try {
-						Names.Add((id, triplet[2]), triplet[1]);
-					} catch(ArgumentException) {
-						Warn($"Tried to populate {nameof(Names)} dictionary with (id,type) pair that already exists!");
-					}
+		foreach(var e in Cfg.Names.Value.Split(';')) {
+			var triplet = e.Split(':');
+			if(int.TryParse(triplet[0], out int id)) {
+				try {
+					Names.Add((id, triplet[2]), triplet[1]);
+				} catch(ArgumentException) {
+					Warn($"Tried to populate {nameof(Names)} dictionary with (id,type) pair that already exists!");
+				}
 			}
+		}
 	}
 	
 	public void Update() {
