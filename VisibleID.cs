@@ -2,6 +2,10 @@ global using System;
 global using System.Collections.Generic;
 global using System.Linq;
 
+global using UnityEngine;
+
+global using Custom = RWCustom.Custom;
+global using Rand = UnityEngine.Random;
 global using Input = UnityEngine.Input;
 global using KeyCode = UnityEngine.KeyCode;
 global using Keys = UnityEngine.KeyCode;

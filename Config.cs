@@ -163,44 +163,53 @@ public class Cfg: OptionInterface {
 			});
 		#endregion
 		#region Tabs[2]
-			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n0_id, new(15f, 475f), 100f);
-			var lbl_id = new Menu.Remix.MixedUI.OpLabel[6+5+1] {
+			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(15f, 475f), 100f);
+			var lbl_id = new Menu.Remix.MixedUI.OpLabel[] {
 				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
-				new(30f, 500f, ""),
+				new(30f, 480f, ""),
+				new(30f, 460f, ""),
+				new(30f, 440f, ""),
+				new(30f, 420f, ""),
+				new(30f, 400f, ""),
+				new(30f, 380f, ""),
+				new(30f, 360f, ""),
+				new(30f, 340f, ""),
+				new(30f, 320f, ""),
+				new(30f, 300f, ""),
+				new(30f, 280f, ""),
 			};
 			
-			void UpdateStatLabels() {
+			tbx_2_id.OnChange += () => {
 				if(int.TryParse(tbx_2_id.value, out int id)) {
 					var eid = new EntityID(-1, id);
 					var personality = new AbstractCreature.Personality(eid);
 					
+#pragma warning disable CS0618
+					var tmp = Rand.seed;
+					Rand.seed = eid.RandomSeed;
+						float dge = Custom.PushFromHalf(Mathf.Lerp((Rand.value >= 0.5f) ? personality.aggression : personality.nervous, Rand.value, Rand.value), 1f + Rand.value);
+						float mid = Custom.PushFromHalf(Mathf.Lerp((Rand.value >= 0.5f) ? personality.aggression : personality.energy,  Rand.value, Rand.value), 1f + Rand.value);
+						float mle = Custom.PushFromHalf(Rand.value, 1f + Rand.value);
+						float blk = Custom.PushFromHalf(Mathf.InverseLerp(0.35f, 1f, Mathf.Lerp((Rand.value >= 0.5f) ? personality.energy : personality.bravery, Rand.value, Rand.value)), 1f + Rand.value);
+						float rea = Custom.PushFromHalf(Mathf.Lerp(personality.energy, Rand.value, Rand.value), 1f + Rand.value);
+					Rand.seed = tmp;
+#pragma warning restore CS0618
+					
 					lbl_id[ 0].text = $"ID: {id}";
-					lbl_id[ 1].text = $"Aggression (agg): {personality.aggression}";
-					lbl_id[ 2].text = $"Bravery (brv): {personality.bravery}";
-					lbl_id[ 3].text = $"Dominance (dom): {personality.dominance}";
-					lbl_id[ 4].text = $"Energy (nrg): {personality.energy}";
+					lbl_id[ 1].text = $"Aggression  (agg): {personality.aggression}";
+					lbl_id[ 2].text = $"Bravery     (brv): {personality.bravery}";
+					lbl_id[ 3].text = $"Dominance   (dom): {personality.dominance}";
+					lbl_id[ 4].text = $"Energy      (nrg): {personality.energy}";
 					lbl_id[ 5].text = $"Nervousness (nrv): {personality.nervous}";
-					lbl_id[ 6].text = $"Sympathy (sym): {personality.sympathy}";
-					lbl_id[ 7].text = $"";
-					lbl_id[ 8].text = $"";
-					lbl_id[ 9].text = $"";
-					lbl_id[10].text = $"";
-					lbl_id[11].text = $"";
+					lbl_id[ 6].text = $"Sympathy    (sym): {personality.sympathy}";
+					lbl_id[ 7].text = $"Skill: Dodge     (dge): {dge}";
+					lbl_id[ 8].text = $"Skill: Mid-Range (mid): {mid}";
+					lbl_id[ 9].text = $"Skill: Melee     (mle): {mle}";
+					lbl_id[10].text = $"Skill: Blocking  (blk): {blk}";
+					lbl_id[11].text = $"Skill: Reaction  (rea): {rea}";
 				} else
 					foreach(var lbl in lbl_id) lbl.text = "";
-			}
-			
-			tbx_2_id.OnChange += () => UpdateStatLabels();
+			};
 			
 			Tabs[2].AddItems(new Menu.Remix.MixedUI.UIelement[] {
 				new Menu.Remix.MixedUI.OpLabel(10f, 550f, "Inspect an ID", true),
