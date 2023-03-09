@@ -16,12 +16,12 @@ public class Cfg: OptionInterface {
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	#endregion
 	#region Cosmetic Configurables
-		static Configurable<string> n0_lbl  = new(Instance, null, "", null);
-		static Configurable<int>    n0_id   = new(Instance, null, 0, null);
-		static Configurable<string> n0_name = new(Instance, null, "", null);
-		static Configurable<string> n0_crea = new(Instance, null, "", null);
+		static Configurable<string> n0_lbl  = new(Instance, null, "", new(""));
+		static Configurable<int>    n0_id   = new(Instance, null,  0, new("What ID are we naming?"));
+		static Configurable<string> n0_name = new(Instance, null, "", new("Type a name for this creature"));
+		static Configurable<string> n0_crea = new(Instance, null, "", new("Select a creature type to associate with the name"));
 		
-		static Configurable<int> n1_id = new(Instance, null, 0, null);
+		static Configurable<int> n1_id = new(Instance, null, 0, new("Type an ID to inspect"));
 	#endregion
 	
 	static Configurable<T> bind<T>(string name, T init) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init);
