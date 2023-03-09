@@ -45,11 +45,11 @@ public class OverheadID: CosmeticSprite {
 		leaser.sprites    = new[] { bg  };
 		leaser.containers = new[] { top };
 		
-		FLabel Lbl(string text, UnityEngine.Color color, Vec2 pos, float scale = 1f) => new FLabel("DisplayFont", text) { anchorX = .5f, scale = scale, color = color, x = pos.x, y = pos.y };
+		FLabel Lbl(string text, UnityEngine.Color color, Vec2 pos, float scale = 1f) => new FLabel(Custom.GetDisplayFont(), text) { anchorX = .5f, scale = scale, color = color, x = pos.x, y = pos.y };
 		
 		FContainer lbl = new();
 			lbl.AddChild(bg);
-			lbl.AddChild(new FLabel("DisplayFont", $"{ID}") { anchorX = .5f, scale = .75f, y = +1f });
+			lbl.AddChild(new FLabel(Custom.GetDisplayFont(), $"{ID}") { anchorX = .5f, scale = .75f, y = +1f });
 		top.AddChild(lbl);
 		
 		FContainer attr   = new() { y = -14f };
