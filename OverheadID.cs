@@ -102,11 +102,11 @@ public class OverheadID: CosmeticSprite {
 		|| !room.BeingViewed
 		|| creature.room is null
 		|| !creature.room.BeingViewed
-		|| (VisibleID.Cfg.Dead.Value && creature.dead)
-		|| (!VisibleID.Cfg.ShowIDs.Value && !VisibleID.Cfg.Attrs.Value)
+		|| (Cfg.Dead.Value && creature.dead)
+		|| (!Cfg.ShowIDs.Value && !Cfg.Attrs.Value)
 		|| (creature is Overseer ovr && (ovr.mode == Overseer.Mode.SittingInWall || ovr.mode == Overseer.Mode.Withdrawing || ovr.mode == Overseer.Mode.Zipping))
 		|| (creature is Fly fly && fly.BitesLeft is 0)
-		|| (creature is Player ply && !ply.isNPC && (!VisibleID.Cfg.Players.Value && !VisibleID.Cfg.PlyrAttr.Value))) {
+		|| (creature is Player ply && !ply.isNPC && (!Cfg.Players.Value && !Cfg.PlyrAttr.Value))) {
 			hide();
 		} else {
 			show();
@@ -114,13 +114,13 @@ public class OverheadID: CosmeticSprite {
 			Vec2 t = Vec2.Lerp(creature.mainBodyChunk.lastPos, creature.mainBodyChunk.pos, time) - campos;
 			(top.x, top.y) = (t.x, t.y + 53f);
 			
-			lbl.isVisible = VisibleID.Cfg.ShowIDs.Value;
-			attr.isVisible = VisibleID.Cfg.Attrs.Value;
-			stat.isVisible = VisibleID.Cfg.Attrs.Value && scav;
+			lbl.isVisible = Cfg.ShowIDs.Value;
+			attr.isVisible = Cfg.Attrs.Value;
+			stat.isVisible = Cfg.Attrs.Value && scav;
 			
 			if(creature is Player p && !p.isNPC) {
-				lbl.isVisible = lbl.isVisible && VisibleID.Cfg.Players.Value;
-				attr.isVisible = attr.isVisible && VisibleID.Cfg.PlyrAttr.Value;
+				lbl.isVisible = lbl.isVisible && Cfg.Players.Value;
+				attr.isVisible = attr.isVisible && Cfg.PlyrAttr.Value;
 			}
 			
 			if(attr.isVisible) {
