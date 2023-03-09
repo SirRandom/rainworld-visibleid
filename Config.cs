@@ -163,20 +163,29 @@ public class Cfg: OptionInterface {
 			});
 		#endregion
 		#region Tabs[2]
-			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(15f, 520f), 100f);
-			var lbl_id = new Menu.Remix.MixedUI.OpLabel[] {
-				new(30f, 500f, ""),
-				new(30f, 480f, ""),
-				new(30f, 460f, ""),
-				new(30f, 440f, ""),
-				new(30f, 420f, ""),
-				new(30f, 400f, ""),
-				new(30f, 380f, ""),
-				new(30f, 360f, ""),
-				new(30f, 340f, ""),
-				new(30f, 320f, ""),
-				new(30f, 300f, ""),
-				new(30f, 280f, ""),
+			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(80f, 520f), 100f);
+			var inspect_lbls = new Menu.Remix.MixedUI.OpLabel[] {
+				new(10f, 320f, "Type in the field to show stats for a given ID number"),
+				new(170f, 460f, "0"),
+				new(170f, 440f, "0"), new(170f, 420f, "0"),
+				new(170f, 400f, "0"), new(170f, 380f, "0"),
+				new(170f, 360f, "0"), new(445f, 460f, "0"),
+				new(445f, 440f, "0"), new(445f, 420f, "0"),
+				new(445f, 400f, "0"), new(445f, 380f, "0"),
+				new(30f, 523f, "ID entry"),
+				new(10f, 480f, "Personality Traits", true),
+				new(300f, 480f, "Scavenger Skills", true),
+				new(30f, 460f, "(agg)"), new(70f, 460f, "Aggression:"),
+				new(30f, 440f, "(brv)"), new(70f, 440f, "Bravery:"),
+				new(30f, 420f, "(dom)"), new(70f, 420f, "Dominance:"),
+				new(30f, 400f, "(nrg)"), new(70f, 400f, "Energy:"),
+				new(30f, 380f, "(nrv)"), new(70f, 380f, "Nervousness:"),
+				new(30f, 360f, "(sym)"), new(70f, 360f, "Sympathy:"),
+				new(320f, 460f, "(dge)"), new(355f, 460f, "Dodge:"),
+				new(320f, 440f, "(mid)"), new(355f, 440f, "Mid-Range:"),
+				new(320f, 420f, "(mle)"), new(355f, 420f, "Melee:"),
+				new(320f, 400f, "(blk)"), new(355f, 400f, "Blocking:"),
+				new(320f, 380f, "(rea)"), new(355f, 380f, "Reaction:"),
 			};
 			
 			tbx_2_id.OnChange += () => {
@@ -195,38 +204,27 @@ public class Cfg: OptionInterface {
 					Rand.seed = tmp;
 #pragma warning restore CS0618
 					
-					lbl_id[ 0].text = $"ID: {id}";
-					lbl_id[ 1].text = $"(agg) Aggression: {personality.aggression}";
-					lbl_id[ 2].text = $"(brv) Bravery: {personality.bravery}";
-					lbl_id[ 3].text = $"(dom) Dominance: {personality.dominance}";
-					lbl_id[ 4].text = $"(nrg) Energy: {personality.energy}";
-					lbl_id[ 5].text = $"(nrv) Nervousness: {personality.nervous}";
-					lbl_id[ 6].text = $"(sym) Sympathy: {personality.sympathy}";
-					lbl_id[ 7].text = $"(dge) Skill: Dodge: {dge}";
-					lbl_id[ 8].text = $"(mid) Skill: Mid-Range: {mid}";
-					lbl_id[ 9].text = $"(mle) Skill: Melee: {mle}";
-					lbl_id[10].text = $"(blk) Skill: Blocking: {blk}";
-					lbl_id[11].text = $"(rea) Skill: Reaction: {rea}";
+					inspect_lbls[ 0].text = $"Showing stats for ID {id}";
+					inspect_lbls[ 1].text = $"{personality.aggression}";
+					inspect_lbls[ 2].text = $"{personality.bravery}";
+					inspect_lbls[ 3].text = $"{personality.dominance}";
+					inspect_lbls[ 4].text = $"{personality.energy}";
+					inspect_lbls[ 5].text = $"{personality.nervous}";
+					inspect_lbls[ 6].text = $"{personality.sympathy}";
+					inspect_lbls[ 7].text = $"{dge}";
+					inspect_lbls[ 8].text = $"{mid}";
+					inspect_lbls[ 9].text = $"{mle}";
+					inspect_lbls[10].text = $"{blk}";
+					inspect_lbls[11].text = $"{rea}";
 				} else
-					foreach(var lbl in lbl_id) lbl.text = "";
+					foreach(var lbl in inspect_lbls.Take(12)) lbl.text = "";
 			};
 			
 			Tabs[2].AddItems(new Menu.Remix.MixedUI.UIelement[] {
 				new Menu.Remix.MixedUI.OpLabel(10f, 550f, "Inspect an ID", true),
 				tbx_2_id,
-				lbl_id[ 0],
-				lbl_id[ 1],
-				lbl_id[ 2],
-				lbl_id[ 3],
-				lbl_id[ 4],
-				lbl_id[ 5],
-				lbl_id[ 6],
-				lbl_id[ 7],
-				lbl_id[ 8],
-				lbl_id[ 9],
-				lbl_id[10],
-				lbl_id[11],
 			});
+			Tabs[2].AddItems(inspect_lbls);
 		#endregion
 		
 		names_lbl._AddToScrollBox(namelist);
