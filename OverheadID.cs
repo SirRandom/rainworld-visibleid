@@ -4,19 +4,21 @@ public class OverheadID: CosmeticSprite {
 	bool scav;
 	Creature creature;
 	
-	   int ID => creature.abstractCreature.ID.number;
-	string Type => creature.abstractCreature.creatureTemplate.type.value;
-	 float agg => creature.abstractCreature.personality.aggression;
-	 float brv => creature.abstractCreature.personality.bravery;
-	 float dom => creature.abstractCreature.personality.dominance;
-	 float nrg => creature.abstractCreature.personality.energy;
-	 float nrv => creature.abstractCreature.personality.nervous;
-	 float sym => creature.abstractCreature.personality.sympathy;
-	 float dge => creature is Scavenger s? s.dodgeSkill    : 0f;
-	 float mid => creature is Scavenger s? s.midRangeSkill : 0f;
-	 float mle => creature is Scavenger s? s.meleeSkill    : 0f;
-	 float blk => creature is Scavenger s? s.blockingSkill : 0f;
-	 float rea => creature is Scavenger s? s.reactionSkill : 0f;
+	#region Convenience properties
+		   int ID => creature.abstractCreature.ID.number;
+		string Type => creature.abstractCreature.creatureTemplate.type.value;
+		 float agg => creature.abstractCreature.personality.aggression;
+		 float brv => creature.abstractCreature.personality.bravery;
+		 float dom => creature.abstractCreature.personality.dominance;
+		 float nrg => creature.abstractCreature.personality.energy;
+		 float nrv => creature.abstractCreature.personality.nervous;
+		 float sym => creature.abstractCreature.personality.sympathy;
+		 float dge => creature is Scavenger s? s.dodgeSkill    : 0f;
+		 float mid => creature is Scavenger s? s.midRangeSkill : 0f;
+		 float mle => creature is Scavenger s? s.meleeSkill    : 0f;
+		 float blk => creature is Scavenger s? s.blockingSkill : 0f;
+		 float rea => creature is Scavenger s? s.reactionSkill : 0f;
+	#endregion
 	
 	public OverheadID(Creature c) {
 		scav = c is Scavenger;
