@@ -17,12 +17,18 @@ global using static fish.rainworld.visibleid.Extensions;
 [assembly: System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.RequestMinimum, SkipVerification = true)]
 #pragma warning restore CS0618
 
+[assembly: System.Reflection.AssemblyProduct    (fish.rainworld.visibleid.VisibleID.Name)]
+[assembly: System.Reflection.AssemblyDescription(fish.rainworld.visibleid.VisibleID.Desc)]
+[assembly: System.Reflection.AssemblyVersion    (fish.rainworld.visibleid.VisibleID.Version)]
+[assembly: System.Reflection.AssemblyFileVersion(fish.rainworld.visibleid.VisibleID.Version)]
+
 namespace fish.rainworld.visibleid;
 
 [BepInEx.BepInPlugin(Id, Name, Version)]
 public class VisibleID: BepInEx.BaseUnityPlugin {
 	public const string Id      = $"{nameof(fish)}.{nameof(visibleid)}";
 	public const string Name    = "Visible ID";
+	public const string Desc    = "A Rain World mod that draws ID labels and other internal stats above creatures' heads.";
 	public const string Version = "2.4";
 	
 	public static VisibleID Instance { get; private set; }
