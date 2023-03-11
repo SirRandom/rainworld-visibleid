@@ -161,7 +161,7 @@ public class Cfg: OptionInterface {
 		#region Tabs[2]
 			var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(80f, 520f), 100f) { description = "Type an ID number to inspect its stats" };
 			var inspect_lbls = new Menu.Remix.MixedUI.OpLabel[] {
-				new(180f, 523f, "Type in the field to show stats for a given ID number"),
+				new(195f, 523f, "Type in the field to show stats for a given ID number"),
 				new(170f, 460f, "0"), new(170f, 440f, "0"), new(170f, 420f, "0"), new(170f, 400f, "0"), new(170f, 380f, "0"), new(170f, 360f, "0"),
 				new(445f, 460f, "0"), new(445f, 440f, "0"), new(445f, 420f, "0"), new(445f, 400f, "0"), new(445f, 380f, "0"),
 				new(30f, 523f, "ID entry"),
