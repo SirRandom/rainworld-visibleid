@@ -33,6 +33,7 @@ public class Cfg: OptionInterface {
 			new Menu.Remix.MixedUI.OpTab(this, "Names"),
 			new Menu.Remix.MixedUI.OpTab(this, "Inspect"),
 		};
+		
 		#region Tabs[0]
 			Tabs[0].AddItems(new Menu.Remix.MixedUI.UIelement[] {
 				new Menu.Remix.MixedUI.OpLabel(10f, 550f, "Visible ID Options", true),
