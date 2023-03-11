@@ -37,7 +37,13 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		Extensions.Logger = Logger;
 		
 		On.PhysicalObject.Update += (o,s, eu) => { o(s, eu);
-			if((Cfg.ShowIDs.Value || Cfg.Attrs.Value) && s.room is not null && !Labels.ContainsKey(s)) new OverheadID(s);
+			if((Cfg.ShowIDs.Value || Cfg.Attrs.Value) && s.room is not null && !Labels.ContainsKey(s)) {
+				if(!Cfg.Objects.Value) {
+					if(s is Creature)
+						new OverheadID(s);
+				} else
+					new OverheadID(s);
+			}
 		};
 		
 		void ClearLabels() { foreach(var label in Labels.Values.ToList()) label.Destroy(); }
