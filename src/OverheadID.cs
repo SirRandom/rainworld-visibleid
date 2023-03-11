@@ -1,36 +1,34 @@
 namespace fish.rainworld.visibleid;
 
 public class OverheadID: CosmeticSprite {
-	bool scav;
-	Creature creature;
+	PhysicalObject obj;
 	
 	#region Convenience properties
-		   int ID => creature.abstractCreature.ID.number;
-		string Type => creature.abstractCreature.creatureTemplate.type.value;
-		 float agg => creature.abstractCreature.personality.aggression;
-		 float brv => creature.abstractCreature.personality.bravery;
-		 float dom => creature.abstractCreature.personality.dominance;
-		 float nrg => creature.abstractCreature.personality.energy;
-		 float nrv => creature.abstractCreature.personality.nervous;
-		 float sym => creature.abstractCreature.personality.sympathy;
-		 float dge => creature is Scavenger s? s.dodgeSkill    : 0f;
-		 float mid => creature is Scavenger s? s.midRangeSkill : 0f;
-		 float mle => creature is Scavenger s? s.meleeSkill    : 0f;
-		 float blk => creature is Scavenger s? s.blockingSkill : 0f;
-		 float rea => creature is Scavenger s? s.reactionSkill : 0f;
+		   int ID   => obj.abstractPhysicalObject.ID.number;
+		string Type => (obj is Creature c)? c.abstractCreature.creatureTemplate.type.value : null;
+		 float agg  => (obj is Creature c)? c.abstractCreature.personality.aggression      : 0f;
+		 float brv  => (obj is Creature c)? c.abstractCreature.personality.bravery         : 0f;
+		 float dom  => (obj is Creature c)? c.abstractCreature.personality.dominance       : 0f;
+		 float nrg  => (obj is Creature c)? c.abstractCreature.personality.energy          : 0f;
+		 float nrv  => (obj is Creature c)? c.abstractCreature.personality.nervous         : 0f;
+		 float sym  => (obj is Creature c)? c.abstractCreature.personality.sympathy        : 0f;
+		 float dge  => (obj as Scavenger)?.dodgeSkill    ?? 0f;
+		 float mid  => (obj as Scavenger)?.midRangeSkill ?? 0f;
+		 float mle  => (obj as Scavenger)?.meleeSkill    ?? 0f;
+		 float blk  => (obj as Scavenger)?.blockingSkill ?? 0f;
+		 float rea  => (obj as Scavenger)?.reactionSkill ?? 0f;
 	#endregion
 	
-	public OverheadID(Creature c) {
-		scav = c is Scavenger;
-		(creature = c).room.AddObject(this);
-		VisibleID.Labels.Add(c, this);
+	public OverheadID(PhysicalObject o) {
+		(obj = o).room.AddObject(this);
+		VisibleID.Labels.Add(o, this);
 	}
 	
 	public override void Update(bool eu) {
-		if(creature.room is not null) {
-			if(room != creature.room) {
+		if(obj.room is not null) {
+			if(room != obj.room) {
 				room.RemoveObject(this);
-				creature.room.AddObject(this);
+				obj.room.AddObject(this);
 			}
 		}
 		base.Update(eu);
@@ -102,25 +100,27 @@ public class OverheadID: CosmeticSprite {
 		
 		if(room is null
 		|| !room.BeingViewed
-		|| creature.room is null
-		|| !creature.room.BeingViewed
-		|| (Cfg.Dead.Value && creature.dead)
+		|| obj.room is null
+		|| !obj.room.BeingViewed
+		|| (!Cfg.Objects.Value && obj is not Creature)
+		|| (Cfg.Dead.Value && obj is Creature c && c.dead)
 		|| (!Cfg.ShowIDs.Value && !Cfg.Attrs.Value)
-		|| (creature is Overseer ovr && (ovr.mode == Overseer.Mode.SittingInWall || ovr.mode == Overseer.Mode.Withdrawing || ovr.mode == Overseer.Mode.Zipping))
-		|| (creature is Fly fly && fly.BitesLeft is 0)
-		|| (creature is Player ply && !ply.isNPC && (!Cfg.Players.Value && !Cfg.PlyrAttr.Value))) {
+		|| (obj is Overseer ovr && (ovr.mode == Overseer.Mode.SittingInWall || ovr.mode == Overseer.Mode.Withdrawing || ovr.mode == Overseer.Mode.Zipping))
+		|| (obj is Fly fly && fly.BitesLeft is 0)
+		|| (obj is Player ply && !ply.isNPC && (!Cfg.Players.Value && !Cfg.PlyrAttr.Value))) {
 			hide();
 		} else {
 			show();
 			
-			Vec2 t = Vec2.Lerp(creature.mainBodyChunk.lastPos, creature.mainBodyChunk.pos, time) - campos;
+			BodyChunk op_chunk = (obj as Creature)?.mainBodyChunk ?? obj.firstChunk;
+			Vec2 t = Vec2.Lerp(op_chunk.lastPos, op_chunk.pos, time) - campos;
 			(top.x, top.y) = (t.x, t.y + 53f);
 			
 			lbl.isVisible = Cfg.ShowIDs.Value;
 			attr.isVisible = Cfg.Attrs.Value;
-			stat.isVisible = Cfg.Attrs.Value && scav;
+			stat.isVisible = Cfg.Attrs.Value && (obj is Scavenger);
 			
-			if(creature is Player p && !p.isNPC) {
+			if(obj is Player p && !p.isNPC) {
 				lbl.isVisible = lbl.isVisible && Cfg.Players.Value;
 				attr.isVisible = attr.isVisible && Cfg.PlyrAttr.Value;
 			}
@@ -150,7 +150,7 @@ public class OverheadID: CosmeticSprite {
 	
 	public override void Destroy() {
 		RemoveFromRoom();
-		VisibleID.Labels.Remove(creature);
+		VisibleID.Labels.Remove(obj);
 		Info($"Active label count {VisibleID.Labels.Count}");
 		base.Destroy();
 	}

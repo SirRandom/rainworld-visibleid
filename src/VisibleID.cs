@@ -33,7 +33,7 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 	
 	public static VisibleID Instance { get; private set; }
 	
-	public static Dictionary<Creature, OverheadID> Labels { get; } = new();
+	public static Dictionary<PhysicalObject, OverheadID> Labels { get; } = new();
 	public static Dictionary<(int, string), string> Names { get; } = new();
 	
 	static bool cfg_init = false;
@@ -42,7 +42,7 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		Instance = this;
 		Extensions.Logger = Logger;
 		
-		On.Creature.Update += (o,s, eu) => { o(s, eu);
+		On.PhysicalObject.Update += (o,s, eu) => { o(s, eu);
 			if((Cfg.ShowIDs.Value || Cfg.Attrs.Value) && s.room is not null && !Labels.ContainsKey(s)) new OverheadID(s);
 		};
 		

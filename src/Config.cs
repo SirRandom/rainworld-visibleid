@@ -12,6 +12,7 @@ public class Cfg: OptionInterface {
 		public static Configurable<bool>    Players     { get; } = bind(nameof(Players    ), true,     "Should we show ID labels for players?");
 		public static Configurable<bool>    PlyrAttr    { get; } = bind(nameof(PlyrAttr   ), false,    "Should we show personality traits for players?");
 		public static Configurable<bool>    Dead        { get; } = bind(nameof(Dead       ), false,    "Should labels disappear when the attached creature dies?");
+		public static Configurable<bool>    Objects     { get; } = bind(nameof(Objects    ), false,    "Should we show ID labels for objects?");
 		
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	#endregion
@@ -47,6 +48,7 @@ public class Cfg: OptionInterface {
 			Tabs[0].AddLabeledCheckbox(Players,  new(20f, 310f));
 			Tabs[0].AddLabeledCheckbox(PlyrAttr, new(20f, 270f));
 			Tabs[0].AddLabeledCheckbox(Dead,     new(20f, 230f));
+			Tabs[0].AddLabeledCheckbox(Objects,  new(20f, 190f));
 		#endregion
 		#region Tabs[1]
 			var bad_red     = new UnityEngine.Color(.85f, .35f, .4f);
