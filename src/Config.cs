@@ -179,6 +179,28 @@ public class Cfg: OptionInterface {
 				new(320f, 400f, "(blk)"), new(355f, 400f, "Blocking:"),
 				new(320f, 380f, "(rea)"), new(355f, 380f, "Reaction:"),
 			};
+			var slugpup_lbls = new Menu.Remix.MixedUI.OpLabel[] {
+				new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""),
+				new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""), new(0f, 0f, ""),
+				new(0f, 0f, "Slugpup Stats", true),
+				new(0f, 0f, "(bal)"), new(0f, 0f, "Balance:"),
+				new(0f, 0f, "(met)"), new(0f, 0f, "Metabolism:"),
+				new(0f, 0f, "(stl)"), new(0f, 0f, "Stealth:"),
+				new(0f, 0f, "(wde)"), new(0f, 0f, "Wideness:"),
+				                      new(0f, 0f, "Dark:"),
+				new(0f, 0f, "(spd)"), new(0f, 0f, "Run Speed:"),
+				new(0f, 0f, "(wgt)"), new(0f, 0f, "Body Weight:"),
+				new(0f, 0f, "(vz0)"), new(0f, 0f, "Visibility, Standing:"),
+				new(0f, 0f, "(vz1)"), new(0f, 0f, "Visibility, Crouched:"),
+				new(0f, 0f, "(lou)"), new(0f, 0f, "Loudness:"),
+				new(0f, 0f, "(lng)"), new(0f, 0f, "Lung Capacity:"),
+				new(0f, 0f, "(pol)"), new(0f, 0f, "Pole Climbing:"),
+				new(0f, 0f, "(tun)"), new(0f, 0f, "Tunnel Climbing:"),
+			};
+			var slugpup_boxes = new Menu.Remix.MixedUI.OpRect[] {
+				new(new(0f, 0f), new(0f, 0f), 1f),
+				new(new(0f, 0f), new(0f, 0f), 1f),
+			};
 			
 			tbx_2_id.OnChange += () => {
 				if(int.TryParse(tbx_2_id.value, out int id)) {
@@ -192,6 +214,45 @@ public class Cfg: OptionInterface {
 						mle = Custom.PushFromHalf(Rand.value, 1f + Rand.value);
 						blk = Custom.PushFromHalf(Mathf.InverseLerp(0.35f, 1f, Mathf.Lerp((Rand.value >= 0.5f) ? personality.energy : personality.bravery, Rand.value, Rand.value)), 1f + Rand.value);
 						rea = Custom.PushFromHalf(Mathf.Lerp(personality.energy, Rand.value, Rand.value), 1f + Rand.value);
+					}
+					
+					if(ModManager.MSC) {
+						float bal, met, stl, wde, eye, h, s, l;
+						bool drk;
+						using(new Seeded(eid.RandomSeed)) {
+							bal = Mathf.Pow(Rand.Range(0f, 1f), 1.5f);
+							met = Mathf.Pow(Rand.Range(0f, 1f), 1.5f);
+							stl = Mathf.Pow(Rand.Range(0f, 1f), 1.5f);
+							wde = Mathf.Pow(Rand.Range(0f, 1f), 1.5f);
+							h = Mathf.Lerp(Rand.Range(0.15f, 0.58f), Rand.value, Mathf.Pow(Rand.value, 1.5f - met));
+							s = Mathf.Pow(Rand.Range(0f, 1f), 0.3f + stl * 0.3f);
+							drk = (Rand.Range(0f, 1f) <= 0.3f + stl * 0.2f);
+							l = Mathf.Pow(Rand.Range(drk ? 0.9f : 0.75f, 1f), 1.5f - stl);
+							eye = Mathf.Pow(Rand.Range(0f, 1f), 2f - stl * 1.5f);
+						}
+						var scugstats = new SlugcatStats(MoreSlugcats.MoreSlugcatsEnums.SlugcatStatsName.Slugpup, false);
+						scugstats.runspeedFac *= 0.85f + 0.15f * met + 0.15f * (1f - bal) + 0.1f * (1f - stl);
+						scugstats.bodyWeightFac *= 0.85f + 0.15f * wde + 0.1f * met;
+						scugstats.generalVisibilityBonus *= 0.8f + 0.2f * (1f - stl) + 0.2f * met;
+						scugstats.visualStealthInSneakMode *= 0.75f + 0.35f * stl + 0.15f * (1f - met);
+						scugstats.loudnessFac *= 0.8f + 0.2f * wde + 0.2f * (1f - stl);
+						scugstats.lungsFac *= 0.8f + 0.2f * (1f - met) + 0.2f * (1f - stl);
+						scugstats.poleClimbSpeedFac *= 0.85f + 0.15f * met + 0.15f * bal + 0.1f * (1f - stl);
+						scugstats.corridorClimbSpeedFac *= 0.85f + 0.15f * met + 0.15f * (1f - bal) + 0.1f * (1f - stl);
+						
+						slugpup_lbls[ 0].text = $"{bal}";
+						slugpup_lbls[ 1].text = $"{met}";
+						slugpup_lbls[ 2].text = $"{stl}";
+						slugpup_lbls[ 3].text = $"{wde}";
+						slugpup_lbls[ 4].text = drk? "yes" : "no";
+						slugpup_lbls[ 5].text = $"{scugstats.runspeedFac}";
+						slugpup_lbls[ 6].text = $"{scugstats.bodyWeightFac}";
+						slugpup_lbls[ 7].text = $"{scugstats.generalVisibilityBonus}";
+						slugpup_lbls[ 8].text = $"{scugstats.visualStealthInSneakMode}";
+						slugpup_lbls[ 9].text = $"{scugstats.loudnessFac}";
+						slugpup_lbls[10].text = $"{scugstats.lungsFac}";
+						slugpup_lbls[11].text = $"{scugstats.poleClimbSpeedFac}";
+						slugpup_lbls[12].text = $"{scugstats.corridorClimbSpeedFac}";
 					}
 					
 					inspect_lbls[ 0].text = $"Showing stats for ID {id}";
@@ -215,6 +276,10 @@ public class Cfg: OptionInterface {
 				tbx_2_id,
 			});
 			Tabs[2].AddItems(inspect_lbls);
+			if(ModManager.MSC) {
+				Tabs[2].AddItems(slugpup_lbls);
+				Tabs[2].AddItems(slugpup_boxes);
+			}
 		#endregion
 		
 		names_lbl._AddToScrollBox(namelist);
