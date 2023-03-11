@@ -182,16 +182,14 @@ public class Cfg: OptionInterface {
 					var eid = new EntityID(-1, id);
 					var personality = new AbstractCreature.Personality(eid);
 					
-#pragma warning disable CS0618
-					var tmp = Rand.seed;
-					Rand.seed = eid.RandomSeed;
-						float dge = Custom.PushFromHalf(Mathf.Lerp((Rand.value >= 0.5f) ? personality.aggression : personality.nervous, Rand.value, Rand.value), 1f + Rand.value);
-						float mid = Custom.PushFromHalf(Mathf.Lerp((Rand.value >= 0.5f) ? personality.aggression : personality.energy,  Rand.value, Rand.value), 1f + Rand.value);
-						float mle = Custom.PushFromHalf(Rand.value, 1f + Rand.value);
-						float blk = Custom.PushFromHalf(Mathf.InverseLerp(0.35f, 1f, Mathf.Lerp((Rand.value >= 0.5f) ? personality.energy : personality.bravery, Rand.value, Rand.value)), 1f + Rand.value);
-						float rea = Custom.PushFromHalf(Mathf.Lerp(personality.energy, Rand.value, Rand.value), 1f + Rand.value);
-					Rand.seed = tmp;
-#pragma warning restore CS0618
+					float dge, mid, mle, blk, rea;
+					using(new Seeded(eid.RandomSeed)) {
+						dge = Custom.PushFromHalf(Mathf.Lerp((Rand.value >= 0.5f) ? personality.aggression : personality.nervous, Rand.value, Rand.value), 1f + Rand.value);
+						mid = Custom.PushFromHalf(Mathf.Lerp((Rand.value >= 0.5f) ? personality.aggression : personality.energy,  Rand.value, Rand.value), 1f + Rand.value);
+						mle = Custom.PushFromHalf(Rand.value, 1f + Rand.value);
+						blk = Custom.PushFromHalf(Mathf.InverseLerp(0.35f, 1f, Mathf.Lerp((Rand.value >= 0.5f) ? personality.energy : personality.bravery, Rand.value, Rand.value)), 1f + Rand.value);
+						rea = Custom.PushFromHalf(Mathf.Lerp(personality.energy, Rand.value, Rand.value), 1f + Rand.value);
+					}
 					
 					inspect_lbls[ 0].text = $"Showing stats for ID {id}";
 					inspect_lbls[ 1].text = $"{personality.aggression}";

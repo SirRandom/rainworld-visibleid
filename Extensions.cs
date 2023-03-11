@@ -12,3 +12,14 @@ static class Extensions {
 			new Menu.Remix.MixedUI.OpLabel(pos.x + 30f, pos.y + 3f, desc ?? setting.info.description, false),
 		});
 }
+
+class Seeded: IDisposable {
+	Rand.State tmpState;
+	
+	public Seeded(int seed) {
+		tmpState = Rand.state;
+		Rand.InitState(seed);
+	}
+	
+	public void Dispose() => Rand.state = tmpState;
+}
