@@ -11,6 +11,8 @@ static class Extensions {
 			new Menu.Remix.MixedUI.OpCheckBox(setting, pos),
 			new Menu.Remix.MixedUI.OpLabel(pos.x + 30f, pos.y + 3f, desc ?? setting.info.description, false),
 		});
+	
+	public static string AsHex(this UnityEngine.Color clr) => ColorUtility.ToHtmlStringRGB(clr);
 }
 
 class Seeded: IDisposable {
