@@ -30,8 +30,6 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 	public static Dictionary<PhysicalObject, OverheadID> Labels { get; } = new();
 	public static Dictionary<(int, string), string> Names { get; } = new();
 	
-	static bool cfg_init = false;
-	
 	public void Awake() {
 		Instance = this;
 		Extensions.Logger = Logger;
@@ -54,10 +52,7 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		On.ArenaSitting.SessionEnded += (o,s, session)      => { o(s, session);      ClearLabels(); };
 		
 		On.RainWorld.OnModsInit += (o,s) => { o(s);
-			if(!cfg_init) {
-				MachineConnector.SetRegisteredOI(Id, Cfg.Instance);
-				cfg_init = true;
-			}
+			MachineConnector.SetRegisteredOI(Id, Cfg.Instance);
 		};
 		
 		On.RainWorld.PostModsInit += (o,s) => { o(s); ReloadNames(); };
