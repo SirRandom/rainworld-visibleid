@@ -245,27 +245,30 @@ public class Cfg: OptionInterface {
 				new(519f,  80f, "0"), // smallneedleworm
 				new(519f,  52f, "0"), // hazer
 			};
-			var foodicons = new Menu.Remix.MixedUI.OpImage[] {
-				new(new(283f, 150f), "Symbol_DangleFruit"),
-				new(new(284f, 130f), "Symbol_WaterNut"),
-				new(new(280f, 100f), "Symbol_JellyFish"),
-				new(new(280f,  75f), "Symbol_SlimeMold"),
-				new(new(283f,  50f), "Symbol_EggBugEgg"),
-				new(new(279f,  25f), "Symbol_FireEgg"),
-				new(new(388f, 158f), "Symbol_Seed"),
-				new(new(392f, 151f), "Symbol_Seed"),
-				new(new(395f, 160f), "Symbol_Seed"),
-				new(new(385f, 127f), "Symbol_GooieDuck"),
-				new(new(385f, 102f), "Symbol_LillyPuck"),
-				new(new(385f,  77f), "Symbol_GlowWeed"),
-				new(new(385f,  49f), "Symbol_DandelionPeach"),
-				new(new(391f,  24f), "Symbol_Neuron"),
-				new(new(488f, 150f), "Kill_Centipede2"),
-				new(new(490f, 128f), "Kill_Centipede1"),
-				new(new(491f, 105f), "Kill_VultureGrub"),
-				new(new(495f,  80f), "Kill_SmallNeedleWorm"),
-				new(new(493f,  52f), "Kill_Hazer"),
-			};
+			Menu.Remix.MixedUI.OpImage[] foodicons = null;
+			
+			if(ModManager.MSC)
+				foodicons = new Menu.Remix.MixedUI.OpImage[] {
+					new(new(283f, 150f), "Symbol_DangleFruit"),
+					new(new(284f, 130f), "Symbol_WaterNut"),
+					new(new(280f, 100f), "Symbol_JellyFish"),
+					new(new(280f,  75f), "Symbol_SlimeMold"),
+					new(new(283f,  50f), "Symbol_EggBugEgg"),
+					new(new(279f,  25f), "Symbol_FireEgg"),
+					new(new(388f, 158f), "Symbol_Seed"),
+					new(new(392f, 151f), "Symbol_Seed"),
+					new(new(395f, 160f), "Symbol_Seed"),
+					new(new(385f, 127f), "Symbol_GooieDuck"),
+					new(new(385f, 102f), "Symbol_LillyPuck"),
+					new(new(385f,  77f), "Symbol_GlowWeed"),
+					new(new(385f,  49f), "Symbol_DandelionPeach"),
+					new(new(391f,  24f), "Symbol_Neuron"),
+					new(new(488f, 150f), "Kill_Centipede2"),
+					new(new(490f, 128f), "Kill_Centipede1"),
+					new(new(491f, 105f), "Kill_VultureGrub"),
+					new(new(495f,  80f), "Kill_SmallNeedleWorm"),
+					new(new(493f,  52f), "Kill_Hazer"),
+				};
 			
 			tbx_2_id.OnChange += () => {
 				if(int.TryParse(tbx_2_id.value, out int id)) {
