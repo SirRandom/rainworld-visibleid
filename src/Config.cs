@@ -13,6 +13,7 @@ public class Cfg: OptionInterface {
 		public static Configurable<bool>    PlyrAttr    { get; } = bind(nameof(PlyrAttr   ), false,    "Should we show personality traits for players?");
 		public static Configurable<bool>    Dead        { get; } = bind(nameof(Dead       ), false,    "Should labels disappear when the attached creature dies?");
 		public static Configurable<bool>    Objects     { get; } = bind(nameof(Objects    ), false,    "Should we show ID labels for objects?");
+		public static Configurable<bool>    Spoilers    { get; } = bind(nameof(Spoilers   ), false,    "Show potential spoilers?");
 		
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	#endregion
@@ -35,6 +36,8 @@ public class Cfg: OptionInterface {
 			new Menu.Remix.MixedUI.OpTab(this, "Inspect"),
 		};
 		
+		bool slugpups = ModManager.MSC && (MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value);
+		
 		#region Tabs[0]
 			Tabs[0].AddItems(new Menu.Remix.MixedUI.UIelement[] {
 				new Menu.Remix.MixedUI.OpLabel(10f, 550f, "Visible ID Options", true),
@@ -49,6 +52,10 @@ public class Cfg: OptionInterface {
 			Tabs[0].AddLabeledCheckbox(PlyrAttr, new(20f, 270f));
 			Tabs[0].AddLabeledCheckbox(Dead,     new(20f, 230f));
 			Tabs[0].AddLabeledCheckbox(Objects,  new(20f, 190f));
+			if(ModManager.MSC) {
+				if(!MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value)
+					Tabs[0].AddLabeledCheckbox(Spoilers, new(20f, 150f));
+			}
 		#endregion
 		#region Tabs[1]
 			var bad_red     = new UnityEngine.Color(.85f, .35f, .4f);
@@ -247,7 +254,7 @@ public class Cfg: OptionInterface {
 			};
 			Menu.Remix.MixedUI.OpImage[] foodicons = null;
 			
-			if(ModManager.MSC)
+			if(slugpups)
 				foodicons = new Menu.Remix.MixedUI.OpImage[] {
 					new(new(283f, 150f), "Symbol_DangleFruit"),
 					new(new(284f, 130f), "Symbol_WaterNut"),
@@ -284,7 +291,7 @@ public class Cfg: OptionInterface {
 						rea = Custom.PushFromHalf(Mathf.Lerp(personality.energy, Rand.value, Rand.value), 1f + Rand.value);
 					}
 					
-					if(ModManager.MSC) {
+					if(slugpups) {
 						float bal, met, stl, siz, wde, eye, h, s, l;
 						bool drk;
 						using(new Seeded(eid.RandomSeed)) {
@@ -430,7 +437,7 @@ public class Cfg: OptionInterface {
 				tbx_2_id,
 			});
 			Tabs[2].AddItems(inspect_lbls);
-			if(ModManager.MSC) {
+			if(slugpups) {
 				Tabs[2].AddItems(slugpup_lbls);
 				Tabs[2].AddItems(slugpup_boxes);
 				Tabs[2].AddItems(foodpref_lbls);
