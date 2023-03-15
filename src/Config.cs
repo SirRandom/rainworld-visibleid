@@ -26,19 +26,17 @@ public class Cfg: OptionInterface {
 		static Configurable<int> n1_id = new(Instance, null, 0, null);
 	#endregion
 	
-	public static Configurable<bool> slugpups_unlocked = new(Instance, null, false, null);
-	
 	static Configurable<T> bind<T>(string name, T init) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init);
 	static Configurable<T> bind<T>(string name, T init, string desc) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, new ConfigurableInfo(desc));
 	
 	public override void Initialize() {
+		bool slugpups = VisibleID.rainworld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value;
+		
 		Tabs = new[] {
 			new Menu.Remix.MixedUI.OpTab(this, "Main"),
 			new Menu.Remix.MixedUI.OpTab(this, "Names"),
 			new Menu.Remix.MixedUI.OpTab(this, "Inspect"),
 		};
-		
-		bool slugpups = slugpups_unlocked.Value || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value;
 		
 		#region Tabs[0]
 			Tabs[0].AddItems(new Menu.Remix.MixedUI.UIelement[] {
@@ -54,10 +52,7 @@ public class Cfg: OptionInterface {
 			Tabs[0].AddLabeledCheckbox(PlyrAttr, new(20f, 270f));
 			Tabs[0].AddLabeledCheckbox(Dead,     new(20f, 230f));
 			Tabs[0].AddLabeledCheckbox(Objects,  new(20f, 190f));
-			if(ModManager.MSC) {
-				if(!(slugpups_unlocked.Value || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value))
-					Tabs[0].AddLabeledCheckbox(Spoilers, new(20f, 150f));
-			}
+			Tabs[0].AddLabeledCheckbox(Spoilers, new(20f, 150f));
 		#endregion
 		#region Tabs[1]
 			var bad_red     = new UnityEngine.Color(.85f, .35f, .4f);
@@ -256,7 +251,7 @@ public class Cfg: OptionInterface {
 			};
 			Menu.Remix.MixedUI.OpImage[] foodicons = null;
 			
-			if(slugpups)
+			if(ModManager.MSC && slugpups)
 				foodicons = new Menu.Remix.MixedUI.OpImage[] {
 					new(new(283f, 150f), "Symbol_DangleFruit"),
 					new(new(284f, 130f), "Symbol_WaterNut"),
@@ -293,7 +288,7 @@ public class Cfg: OptionInterface {
 						rea = Custom.PushFromHalf(Mathf.Lerp(personality.energy, Rand.value, Rand.value), 1f + Rand.value);
 					}
 					
-					if(slugpups) {
+					if(ModManager.MSC && slugpups) {
 						float bal, met, stl, siz, wde, eye, h, s, l;
 						bool drk;
 						using(new Seeded(eid.RandomSeed)) {
@@ -429,7 +424,7 @@ public class Cfg: OptionInterface {
 				} else {
 					foreach(var lbl in inspect_lbls.Take(12)) lbl.text = "";
 					foreach(var lbl in slugpup_lbls.Take(20)) lbl.text = "";
-					if(slugpups) foreach(var box in slugpup_boxes) box.colorFill = new(0f,0f,0f,1f);
+					if(ModManager.MSC && slugpups) foreach(var box in slugpup_boxes) box.colorFill = new(0f,0f,0f,1f);
 					foreach(var lbl in foodpref_lbls) lbl.text = "";
 				}
 			};
@@ -439,7 +434,7 @@ public class Cfg: OptionInterface {
 				tbx_2_id,
 			});
 			Tabs[2].AddItems(inspect_lbls);
-			if(slugpups) {
+			if(ModManager.MSC && slugpups) {
 				Tabs[2].AddItems(slugpup_lbls);
 				Tabs[2].AddItems(slugpup_boxes);
 				Tabs[2].AddItems(foodpref_lbls);
