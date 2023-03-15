@@ -3,6 +3,6 @@
 	"name": "Visible ID",
 	"authors": "original code by ratrat44<LINE>port & modifications by fish",
 	"description": "This is a Downpour port of ratrat44's Visible ID mod originally for v1.5. It displays the ID numbers of creatures above their heads. Additionally, a second overlay that details personality traits and skills can be toggled. Creatures can also be named by their ID number and creature type.",
-	"version": "0205",
+	"version": "0206",
 	"checksum_override_version": false
 }
