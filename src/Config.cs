@@ -251,7 +251,7 @@ public class Cfg: OptionInterface {
 			};
 			Menu.Remix.MixedUI.OpImage[] foodicons = null;
 			
-			if(ModManager.MSC && slugpups)
+			if(ModManager.MSC)
 				foodicons = new Menu.Remix.MixedUI.OpImage[] {
 					new(new(283f, 150f), "Symbol_DangleFruit"),
 					new(new(284f, 130f), "Symbol_WaterNut"),
@@ -288,7 +288,7 @@ public class Cfg: OptionInterface {
 						rea = Custom.PushFromHalf(Mathf.Lerp(personality.energy, Rand.value, Rand.value), 1f + Rand.value);
 					}
 					
-					if(ModManager.MSC && slugpups) {
+					if(ModManager.MSC) {
 						float bal, met, stl, siz, wde, eye, h, s, l;
 						bool drk;
 						using(new Seeded(eid.RandomSeed)) {
@@ -424,7 +424,7 @@ public class Cfg: OptionInterface {
 				} else {
 					foreach(var lbl in inspect_lbls.Take(12)) lbl.text = "";
 					foreach(var lbl in slugpup_lbls.Take(20)) lbl.text = "";
-					if(ModManager.MSC && slugpups) foreach(var box in slugpup_boxes) box.colorFill = new(0f,0f,0f,1f);
+					if(ModManager.MSC) foreach(var box in slugpup_boxes) box.colorFill = new(0f,0f,0f,1f);
 					foreach(var lbl in foodpref_lbls) lbl.text = "";
 				}
 			};
@@ -434,13 +434,24 @@ public class Cfg: OptionInterface {
 				tbx_2_id,
 			});
 			Tabs[2].AddItems(inspect_lbls);
-			if(ModManager.MSC && slugpups) {
+			if(ModManager.MSC) {
 				Tabs[2].AddItems(slugpup_lbls);
 				Tabs[2].AddItems(slugpup_boxes);
 				Tabs[2].AddItems(foodpref_lbls);
 				Tabs[2].AddItems(foodicons);
 			}
 		#endregion
+		
+		OnActivate += () => {
+			if(ModManager.MSC) {
+				slugpups = VisibleID.rainworld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value;
+				
+				foreach(var i in slugpup_lbls)  i.Hidden = !slugpups;
+				foreach(var i in slugpup_boxes) i.Hidden = !slugpups;
+				foreach(var i in foodpref_lbls) i.Hidden = !slugpups;
+				foreach(var i in foodicons)     i.Hidden = !slugpups;
+			}
+		};
 		
 		names_lbl._AddToScrollBox(namelist);
 		UpdateNamesLabel();
