@@ -56,6 +56,13 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		};
 		
 		On.RainWorld.PostModsInit += (o,s) => { o(s); ReloadNames(); };
+		
+		On.SaveState.LoadGame += (o,s,a,b) => {
+			o(s,a,b);
+			Cfg.slugpups_unlocked.Value = s.progression.miscProgressionData.beaten_Gourmand_Full;
+			Info("Loaded Game");
+		};
+		
 		Info("Visible ID has initialized");
 	}
 	

@@ -26,6 +26,8 @@ public class Cfg: OptionInterface {
 		static Configurable<int> n1_id = new(Instance, null, 0, null);
 	#endregion
 	
+	public static Configurable<bool> slugpups_unlocked = new(Instance, null, false, null);
+	
 	static Configurable<T> bind<T>(string name, T init) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init);
 	static Configurable<T> bind<T>(string name, T init, string desc) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, new ConfigurableInfo(desc));
 	
@@ -36,7 +38,7 @@ public class Cfg: OptionInterface {
 			new Menu.Remix.MixedUI.OpTab(this, "Inspect"),
 		};
 		
-		bool slugpups = ModManager.MSC && (MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value);
+		bool slugpups = slugpups_unlocked.Value || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value;
 		
 		#region Tabs[0]
 			Tabs[0].AddItems(new Menu.Remix.MixedUI.UIelement[] {
@@ -53,7 +55,7 @@ public class Cfg: OptionInterface {
 			Tabs[0].AddLabeledCheckbox(Dead,     new(20f, 230f));
 			Tabs[0].AddLabeledCheckbox(Objects,  new(20f, 190f));
 			if(ModManager.MSC) {
-				if(!MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value)
+				if(!(slugpups_unlocked.Value || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value))
 					Tabs[0].AddLabeledCheckbox(Spoilers, new(20f, 150f));
 			}
 		#endregion
@@ -427,7 +429,7 @@ public class Cfg: OptionInterface {
 				} else {
 					foreach(var lbl in inspect_lbls.Take(12)) lbl.text = "";
 					foreach(var lbl in slugpup_lbls.Take(20)) lbl.text = "";
-					foreach(var box in slugpup_boxes) box.colorFill = new(0f,0f,0f,1f);
+					if(slugpups) foreach(var box in slugpup_boxes) box.colorFill = new(0f,0f,0f,1f);
 					foreach(var lbl in foodpref_lbls) lbl.text = "";
 				}
 			};
