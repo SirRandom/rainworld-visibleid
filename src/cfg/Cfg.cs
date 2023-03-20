@@ -27,6 +27,7 @@ public partial class Cfg: OptionInterface {
 	public override void Initialize()
 		=> Tabs = new Menu.Remix.MixedUI.OpTab[] {
 			new CfgTabMain(),
+			new CfgTabKeybinds(),
 			new CfgTabNames(),
 			new CfgTabInspect(),
 		};
