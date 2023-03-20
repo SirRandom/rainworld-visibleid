@@ -58,7 +58,11 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		};
 		
 		On.RainWorld.ctor += (o,s) => { o(s); rainworld = s; };
-		On.RainWorld.PostModsInit += (o,s) => { o(s); ReloadNames(); };
+		On.RainWorld.PostModsInit += (o,s) => { o(s);
+			ReloadNames();
+			Info($"{Name} configuration version {Cfg.ConfigVersion.Value}");
+			Cfg.EarlySettingCleanup_RunASAP();
+		};
 		
 		Info("Visible ID has initialized");
 	}

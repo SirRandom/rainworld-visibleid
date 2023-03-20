@@ -5,6 +5,10 @@ public class Cfg: OptionInterface {
 	public static Cfg Instance { get; } = new();
 	
 	#region Actual Configurables
+		public static Configurable<int> ConfigVersion { get; } = bind(nameof(ConfigVersion), 0,
+			$"The version of this configuration. This value is presently used to migrate the value of the \"{nameof(Names)}\" setting across different mod versions. In the future it may be used for further attempts in forward-/backward-compatibility"
+		);
+		
 		public static Configurable<KeyCode> ToggleID    { get; } = bind(nameof(ToggleID   ), Keys.Tab, "The key that should toggle ID display on and off");
 		public static Configurable<KeyCode> ToggleStats { get; } = bind(nameof(ToggleStats), Keys.End, "The key that should toggle personality & traits display on and off");
 		public static Configurable<bool>    ShowIDs     { get; } = bind(nameof(ShowIDs    ), false,    "Should ID labels be on at the start of the game?");
@@ -457,5 +461,9 @@ public class Cfg: OptionInterface {
 		names_lbl._AddToScrollBox(namelist);
 		UpdateNamesLabel();
 		ClearInputBoxes();
+	}
+	
+	public static void EarlySettingCleanup_RunASAP() {
+		
 	}
 }
