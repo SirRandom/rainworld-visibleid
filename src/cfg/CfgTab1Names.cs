@@ -1,10 +1,13 @@
 namespace fish.rainworld.visibleid;
 using Menu.Remix.MixedUI;
 
-public partial class Cfg {
-	OpTab InitializeNamesTab() {
-		OpTab tab = new(this, "Names");
-		
+public class CfgTabNames: OpTab {
+	Configurable<string> n0_lbl  = new(Cfg.Instance, null, "", null);
+	Configurable<int>    n0_id   = new(Cfg.Instance, null,  0, null);
+	Configurable<string> n0_name = new(Cfg.Instance, null, "", null);
+	Configurable<string> n0_crea = new(Cfg.Instance, null, "", null);
+	
+	public CfgTabNames(): base(Cfg.Instance, "Names") {
 		var bad_red     = new UnityEngine.Color(.85f, .35f, .4f);
 		var tbx_id      = new OpTextBox(n0_id, new(15f, 475f), 100f) { description = "Enter the creature ID that you wish to name" };
 		var tbx_name    = new OpTextBox(n0_name, new(125f, 475f), 200f) { allowSpace = true, description = "What should this creature be named?" };
@@ -23,7 +26,7 @@ public partial class Cfg {
 			color = bad_red,
 		};
 		
-		string label_text() => string.IsNullOrEmpty(Names.Value)? "No mappings created" : string.Join("\n", Names.Value.Split(';').Select(v => {
+		string label_text() => string.IsNullOrEmpty(Cfg.Names.Value)? "No mappings created" : string.Join("\n", Cfg.Names.Value.Split(';').Select(v => {
 			var x = v.Split(':');
 			return $"{x[0]}={x[1]} ({x[2]})";
 		}));
@@ -52,16 +55,16 @@ public partial class Cfg {
 		
 		void AddName(int id, string name, string type) {
 			if(!VisibleID.Names.ContainsKey((id, type))) {
-				Names.Value += $";{id}:{name}:{type}";
-				if(Names.Value[0] is ';') Names.Value = Names.Value.Substring(1);
-				config.Save();
+				Cfg.Names.Value += $";{id}:{name}:{type}";
+				if(Cfg.Names.Value[0] is ';') Cfg.Names.Value = Cfg.Names.Value.Substring(1);
+				Cfg.Instance.config.Save();
 				VisibleID.Instance.ReloadNames();
 			} else
 				SetError($"Name already defined for {type} with id {id}");
 		}
 		
 		void RemoveName(int id, string type) {
-			var entries = Names.Value.Split(';');
+			var entries = Cfg.Names.Value.Split(';');
 			
 			string tgt = null;
 			foreach(var i in entries) {
@@ -71,8 +74,8 @@ public partial class Cfg {
 			
 			if(tgt is not null) {
 				var i = entries.IndexOf(tgt);
-				Names.Value = string.Join(";", entries.Take(i).Concat(entries.Skip(i+1)));
-				config.Save();
+				Cfg.Names.Value = string.Join(";", entries.Take(i).Concat(entries.Skip(i+1)));
+				Cfg.Instance.config.Save();
 				VisibleID.Instance.ReloadNames();
 			} else
 				SetError($"No name found for {type} with id {id}");
@@ -98,13 +101,13 @@ public partial class Cfg {
 		
 		btn_del_all.OnPressDone += t => {
 			t.Menu.PlaySound(SoundID.MENU_Security_Button_Release);
-			Names.Value = "";
-			config.Save();
+			Cfg.Names.Value = "";
+			Cfg.Instance.config.Save();
 			UpdateNamesLabel();
 			ClearInputBoxes();
 		};
 		
-		tab.AddItems(
+		this.AddItems(
 			new OpLabel(10f, 550f, "ID to Name Mapping", true),
 			new OpLabel(30f, 500f, "ID", false),
 			new OpLabel(140f, 500f, "Name", false),
@@ -114,9 +117,7 @@ public partial class Cfg {
 		
 		names_lbl._AddToScrollBox(namelist);
 		
-		this.OnActivate += UpdateNamesLabel;
-		this.OnActivate += ClearInputBoxes;
-		
-		return tab;
+		Cfg.Instance.OnActivate += UpdateNamesLabel;
+		Cfg.Instance.OnActivate += ClearInputBoxes;
 	}
 }

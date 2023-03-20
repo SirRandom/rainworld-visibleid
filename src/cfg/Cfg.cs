@@ -22,11 +22,6 @@ public partial class Cfg: OptionInterface {
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	#endregion
 	#region Cosmetic Configurables
-		static Configurable<string> n0_lbl  = new(Instance, null, "", null);
-		static Configurable<int>    n0_id   = new(Instance, null,  0, null);
-		static Configurable<string> n0_name = new(Instance, null, "", null);
-		static Configurable<string> n0_crea = new(Instance, null, "", null);
-		
 		static Configurable<int> n1_id = new(Instance, null, 0, null);
 	#endregion
 	
@@ -36,7 +31,7 @@ public partial class Cfg: OptionInterface {
 	public override void Initialize()
 		=> Tabs = new[] {
 			InitializeMainTab(),
-			InitializeNamesTab(),
+			new CfgTabNames(),
 			InitializeInspectTab(),
 		};
 	
