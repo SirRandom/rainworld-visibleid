@@ -22,8 +22,7 @@ public partial class Cfg: OptionInterface {
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	#endregion
 	
-	static Configurable<T> bind<T>(string name, T init) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init);
-	static Configurable<T> bind<T>(string name, T init, string desc) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, new ConfigurableInfo(desc));
+	static Configurable<T> bind<T>(string name, T init, string desc = null) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, desc is null ? null : new ConfigurableInfo(desc));
 	
 	public override void Initialize()
 		=> Tabs = new Menu.Remix.MixedUI.OpTab[] {
