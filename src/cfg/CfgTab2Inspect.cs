@@ -1,11 +1,11 @@
 namespace fish.rainworld.visibleid;
 using Menu.Remix.MixedUI;
 
-public partial class Cfg {
-	OpTab InitializeInspectTab() {
-		OpTab tab = new(this, "Inspect");
-		
-		bool slugpups = VisibleID.rainworld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value;
+public class CfgTabInspect: OpTab {
+	Configurable<int> n1_id = new(Cfg.Instance, null, 0, null);
+	
+	public CfgTabInspect(): base(Cfg.Instance, "Inspect") {
+		bool slugpups = VisibleID.rainworld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Cfg.Spoilers.Value;
 		
 		var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(80f, 520f), 100f) { description = "Type an ID number to inspect its stats" };
 		var inspect_lbls = new Menu.Remix.MixedUI.OpLabel[] {
@@ -273,21 +273,21 @@ public partial class Cfg {
 			}
 		};
 		
-		tab.AddItems(new Menu.Remix.MixedUI.UIelement[] {
+		this.AddItems(new Menu.Remix.MixedUI.UIelement[] {
 			new Menu.Remix.MixedUI.OpLabel(10f, 550f, "Inspect an ID", true),
 			tbx_2_id,
 		});
-		tab.AddItems(inspect_lbls);
+		this.AddItems(inspect_lbls);
 		if(ModManager.MSC) {
-			tab.AddItems(slugpup_lbls);
-			tab.AddItems(slugpup_boxes);
-			tab.AddItems(foodpref_lbls);
-			tab.AddItems(foodicons);
+			this.AddItems(slugpup_lbls);
+			this.AddItems(slugpup_boxes);
+			this.AddItems(foodpref_lbls);
+			this.AddItems(foodicons);
 		}
 		
-		OnActivate += () => {
+		Cfg.Instance.OnActivate += () => {
 			if(ModManager.MSC) {
-				slugpups = VisibleID.rainworld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value;
+				slugpups = VisibleID.rainworld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Cfg.Spoilers.Value;
 				
 				foreach(var i in slugpup_lbls)  i.Hidden = !slugpups;
 				foreach(var i in slugpup_boxes) i.Hidden = !slugpups;
@@ -295,7 +295,5 @@ public partial class Cfg {
 				foreach(var i in foodicons)     i.Hidden = !slugpups;
 			}
 		};
-		
-		return tab;
 	}
 }

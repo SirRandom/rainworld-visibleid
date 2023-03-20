@@ -22,17 +22,17 @@ public partial class Cfg: OptionInterface {
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	#endregion
 	#region Cosmetic Configurables
-		static Configurable<int> n1_id = new(Instance, null, 0, null);
+		
 	#endregion
 	
 	static Configurable<T> bind<T>(string name, T init) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init);
 	static Configurable<T> bind<T>(string name, T init, string desc) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, new ConfigurableInfo(desc));
 	
 	public override void Initialize()
-		=> Tabs = new[] {
+		=> Tabs = new Menu.Remix.MixedUI.OpTab[] {
 			new CfgTabMain(),
 			new CfgTabNames(),
-			InitializeInspectTab(),
+			new CfgTabInspect(),
 		};
 	
 	public static void EarlySettingCleanup_RunASAP() {
