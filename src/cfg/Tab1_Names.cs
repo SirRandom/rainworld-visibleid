@@ -1,13 +1,13 @@
 namespace fish.rainworld.visibleid;
 using Menu.Remix.MixedUI;
 
-public class CfgTabNames: OpTab {
-	Configurable<string> n0_lbl  = new(Cfg.Instance, null, "", null);
-	Configurable<int>    n0_id   = new(Cfg.Instance, null,  0, null);
-	Configurable<string> n0_name = new(Cfg.Instance, null, "", null);
-	Configurable<string> n0_crea = new(Cfg.Instance, null, "", null);
+public class CfgTabNames: CfgTab {
+	Configurable<string> n0_lbl  = CosmeticBind("");
+	Configurable<int>    n0_id   = CosmeticBind( 0);
+	Configurable<string> n0_name = CosmeticBind("");
+	Configurable<string> n0_crea = CosmeticBind("");
 	
-	public CfgTabNames(): base(Cfg.Instance, "Names") {
+	public CfgTabNames(): base("Names") {
 		var bad_red     = new UnityEngine.Color(.85f, .35f, .4f);
 		var tbx_id      = new OpTextBox(n0_id, new(15f, 475f), 100f) { description = "Enter the creature ID that you wish to name" };
 		var tbx_name    = new OpTextBox(n0_name, new(125f, 475f), 200f) { allowSpace = true, description = "What should this creature be named?" };

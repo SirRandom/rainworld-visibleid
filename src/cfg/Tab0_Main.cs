@@ -1,8 +1,8 @@
 namespace fish.rainworld.visibleid;
 using Menu.Remix.MixedUI;
 
-public class CfgTabMain: OpTab {
-	public CfgTabMain(): base(Cfg.Instance, "Main") {
+public class CfgTabMain: CfgTab {
+	public CfgTabMain(): base("Main") {
 		this.AddItems(
 			new OpLabel(10f, 550f, "Visible ID Options", true),
 			new OpLabel(20f, 500f, "Toggle ID Display", false),

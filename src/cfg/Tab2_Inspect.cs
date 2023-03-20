@@ -1,10 +1,10 @@
 namespace fish.rainworld.visibleid;
 using Menu.Remix.MixedUI;
 
-public class CfgTabInspect: OpTab {
-	Configurable<int> n1_id = new(Cfg.Instance, null, 0, null);
+public class CfgTabInspect: CfgTab {
+	Configurable<int> n1_id = CosmeticBind(0);
 	
-	public CfgTabInspect(): base(Cfg.Instance, "Inspect") {
+	public CfgTabInspect(): base("Inspect") {
 		bool slugpups = VisibleID.rainworld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Cfg.Spoilers.Value;
 		
 		var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(80f, 520f), 100f) { description = "Type an ID number to inspect its stats" };
