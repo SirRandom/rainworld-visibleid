@@ -1,6 +1,6 @@
 namespace fish.rainworld.visibleid;
 
-public class Cfg: OptionInterface {
+public partial class Cfg: OptionInterface {
 	Cfg() {}
 	public static Cfg Instance { get; } = new();
 	
