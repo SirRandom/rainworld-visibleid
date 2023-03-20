@@ -11,7 +11,7 @@ public class CfgTabNames: CfgTab {
 		var bad_red     = new UnityEngine.Color(.85f, .35f, .4f);
 		var tbx_id      = new OpTextBox(n0_id, new(15f, 475f), 100f) { description = "Enter the creature ID that you wish to name" };
 		var tbx_name    = new OpTextBox(n0_name, new(125f, 475f), 200f) { allowSpace = true, description = "What should this creature be named?" };
-		var cbx_crea    = new OpComboBox(n0_crea, new(335f, 475f), 140f, new List<Menu.Remix.MixedUI.ListItem>(CreatureTemplate.Type.values.entries.Select(s => new Menu.Remix.MixedUI.ListItem(s)))) { description = "Select what type of creature this name should apply to" };
+		var cbx_crea    = new OpComboBox(n0_crea, new(335f, 475f), 140f, new List<ListItem>(CreatureTemplate.Type.values.entries.Select(s => new ListItem(s)))) { description = "Select what type of creature this name should apply to" };
 		var btn_add     = new OpSimpleButton(new(485f, 475f), new(40f, 24f), "add") { description = "Click to add the given name mapping" };
 		var btn_del     = new OpSimpleButton(new(535f, 475f), new(40f, 24f), "del") { description = "Click to remove the given name mapping" };
 		var btn_del_all = new OpHoldButton(new(515f, 515f), 10f, "del all") { description = "Click to remove all name mappings", colorEdge = bad_red, colorFill = bad_red };
