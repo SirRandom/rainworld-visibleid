@@ -59,7 +59,7 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		
 		On.RainWorld.ctor += (o,s) => { o(s); rainworld = s; };
 		On.RainWorld.PostModsInit += (o,s) => { o(s);
-			ReloadNames();
+			ReloadNamesFromConfig();
 			Info($"{Name} configuration version {Cfg.ConfigVersion.Value}");
 			Cfg.EarlySettingCleanup_RunASAP();
 		};
@@ -67,7 +67,7 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		Info("Visible ID has initialized");
 	}
 	
-	public void ReloadNames() {
+	public void ReloadNamesFromConfig() {
 		Names.Clear();
 		foreach(var e in Cfg.Names.Value.Split(';')) {
 			var triplet = e.Split(':');

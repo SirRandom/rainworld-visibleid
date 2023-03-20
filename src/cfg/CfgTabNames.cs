@@ -58,7 +58,7 @@ public class CfgTabNames: CfgTab {
 				Cfg.Names.Value += $";{id}:{name}:{type}";
 				if(Cfg.Names.Value[0] is ';') Cfg.Names.Value = Cfg.Names.Value.Substring(1);
 				Cfg.Instance.config.Save();
-				VisibleID.Instance.ReloadNames();
+				VisibleID.Instance.ReloadNamesFromConfig();
 			} else
 				SetError($"Name already defined for {type} with id {id}");
 		}
@@ -76,7 +76,7 @@ public class CfgTabNames: CfgTab {
 				var i = entries.IndexOf(tgt);
 				Cfg.Names.Value = string.Join(";", entries.Take(i).Concat(entries.Skip(i+1)));
 				Cfg.Instance.config.Save();
-				VisibleID.Instance.ReloadNames();
+				VisibleID.Instance.ReloadNamesFromConfig();
 			} else
 				SetError($"No name found for {type} with id {id}");
 		}
