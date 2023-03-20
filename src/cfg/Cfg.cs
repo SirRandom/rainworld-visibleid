@@ -21,9 +21,6 @@ public partial class Cfg: OptionInterface {
 		
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	#endregion
-	#region Cosmetic Configurables
-		
-	#endregion
 	
 	static Configurable<T> bind<T>(string name, T init) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init);
 	static Configurable<T> bind<T>(string name, T init, string desc) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, new ConfigurableInfo(desc));
