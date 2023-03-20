@@ -3,15 +3,7 @@ using Menu.Remix.MixedUI;
 
 public class CfgTabMain: CfgTab {
 	public CfgTabMain(): base("Main") {
-		this.AddItems(
-			new OpLabel(10f, 550f, "Visible ID Options", true),
-			new OpLabel(20f, 500f, "Toggle ID Display", false),
-			new OpKeyBinder(Cfg.ToggleID, new(250f, 492f), new(100f, 35f))
-				{ description = "This button will toggle overhead ID & name labels" },
-			new OpLabel(20f, 450f, "Toggle Personality & Traits Display", false),
-			new OpKeyBinder(Cfg.ToggleStats, new(250f, 442f), new(100f, 35f))
-				{ description = "This button will toggle the overhead personality & skills display" }
-		);
+		this._AddItem(new OpLabel(10f, 550f, "General Options", true));
 		this.AddLabeledCheckbox(Cfg.ShowIDs,  new(20f, 390f));
 		this.AddLabeledCheckbox(Cfg.Attrs,    new(20f, 350f));
 		this.AddLabeledCheckbox(Cfg.Players,  new(20f, 310f));
