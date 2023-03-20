@@ -36,7 +36,7 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 		Instance = this;
 		Extensions.Logger = Logger;
 		
-		On.PhysicalObject.Update += (o,s, eu) => { o(s, eu);
+		On.PhysicalObject.Update += (o,s,eu) => { o(s,eu);
 			if((Cfg.ShowIDs.Value || Cfg.Attrs.Value) && s.room is not null && !Labels.ContainsKey(s)) {
 				if(!Cfg.Objects.Value) {
 					if(s is Creature)
