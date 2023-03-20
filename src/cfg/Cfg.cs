@@ -30,7 +30,7 @@ public partial class Cfg: OptionInterface {
 	
 	public override void Initialize()
 		=> Tabs = new[] {
-			InitializeMainTab(),
+			new CfgTabMain(),
 			new CfgTabNames(),
 			InitializeInspectTab(),
 		};
