@@ -4,7 +4,6 @@ public partial class Cfg: OptionInterface {
 	Cfg() {}
 	public static Cfg Instance { get; } = new();
 	
-	#region Actual Configurables
 		public static Configurable<int> ConfigVersion { get; } = bind(nameof(ConfigVersion), 0,
 			$"The version of this configuration. This value is presently used to migrate the value of the \"{nameof(Names)}\" setting across different mod versions. In the future it may be used for further attempts in forward-/backward-compatibility"
 		);
@@ -20,7 +19,6 @@ public partial class Cfg: OptionInterface {
 		public static Configurable<bool>    Spoilers    { get; } = bind(nameof(Spoilers   ), false,    "Show potential spoilers?");
 		
 		public static Configurable<string> Names { get; } = bind(nameof(Names), "");
-	#endregion
 	
 	static Configurable<T> bind<T>(string name, T init, string desc = null) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, desc is null ? null : new ConfigurableInfo(desc));
 	
