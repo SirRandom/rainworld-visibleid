@@ -5,6 +5,10 @@
 		<Configuration>Release</Configuration>
 	</PropertyGroup>
 	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<OutputPath>$(MSBuildProjectDirectory)\bin</OutputPath>
+		<IntermediateOutputPath>$(MSBuildProjectDirectory)\obj</IntermediateOutputPath>
 		<rwroot>C:\Program Files (x86)\Steam\steamapps\common\Rain World</rwroot>
 	</PropertyGroup>
 	<ItemGroup>
