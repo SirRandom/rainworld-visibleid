@@ -32,6 +32,11 @@ public sealed class Cfg: OptionInterface {
 			new CfgTabInspect(),
 		};
 	
+	const char fs = '\x001C';
+	const char gs = '\x001D';
+	const char rs = '\x001E';
+	const char us = '\x001F';
+	
 	public static void EarlySettingCleanup_RunASAP() {
 		
 	}
