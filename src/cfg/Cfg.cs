@@ -40,4 +40,37 @@ public sealed class Cfg: OptionInterface {
 	public static void EarlySettingCleanup_RunASAP() {
 		
 	}
+	
+	static Dictionary<(int id, string type), string> ParseNamesVersion0(string names) {
+		Dictionary<(int id, string type), string> mapping = new();
+		
+		foreach(var record in names.Split(';')) {
+			var (id,type,name) = record.Split(':');
+			try {
+				mapping.Add((int.Parse(id),type), name);
+			} catch(Exception e) {
+				Error($"Problem in {nameof(ParseNamesVersion0)} while adding data to {nameof(mapping)}:\n{e.Message}\n{e.StackTrace}");
+			}
+		}
+		
+		return mapping;
+	}
+	
+	static Dictionary<(int id, string type), string> ParseNamesVersion1(string names) {
+		Dictionary<(int id, string type), string> mapping = new();
+		
+		foreach(var record in names.Split(rs)) {
+			var (id,type,name) = record.Split(us);
+			try {
+				mapping.Add((int.Parse(id),type), name);
+			} catch(Exception e) {
+				Error($"Problem in {nameof(ParseNamesVersion1)} while adding data to {nameof(mapping)}:\n{e.Message}\n{e.StackTrace}");
+			}
+		}
+		
+		return mapping;
+	}
+	
+	static string ToLatestNamesFormat(Dictionary<(int id, string type), string> mapping)
+		=> string.Join(rs.ToString(), mapping.Select(kv => $"{kv.Key.id}{us}{kv.Key.type}{us}{kv.Value}"));
 }

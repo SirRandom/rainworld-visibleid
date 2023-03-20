@@ -13,6 +13,12 @@ static class Extensions {
 		});
 	
 	public static string AsHex(this UnityEngine.Color clr) => ColorUtility.ToHtmlStringRGB(clr);
+	
+	public static void Deconstruct(this string[] s, out string first, out string second, out string third) {
+		first  = s[0];
+		second = s[1];
+		third  = s[2];
+	}
 }
 
 class Seeded: IDisposable {
