@@ -442,6 +442,7 @@ public class Cfg: OptionInterface {
 			}
 		#endregion
 		
+		// Hide slugpup stuff if no MSC
 		OnActivate += () => {
 			if(ModManager.MSC) {
 				slugpups = VisibleID.rainworld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Spoilers.Value;
