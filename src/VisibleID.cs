@@ -30,8 +30,6 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 	public static Dictionary<PhysicalObject, OverheadID> Labels { get; } = new();
 	public static Dictionary<(int, string), string> Names { get; } = new();
 	
-	public static RainWorld rainworld;
-	
 	public void Awake() {
 		Instance = this;
 		Extensions.Logger = Logger;
@@ -57,7 +55,6 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 			MachineConnector.SetRegisteredOI(Id, Cfg.Instance);
 		};
 		
-		On.RainWorld.ctor += (o,s) => { o(s); rainworld = s; };
 		On.RainWorld.PostModsInit += (o,s) => { o(s);
 			ReloadNamesFromConfig();
 			Info($"{Name} configuration version {Cfg.ConfigVersion.Value}");
