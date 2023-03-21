@@ -19,6 +19,9 @@ public class OverheadID: CosmeticSprite {
 		 float rea  => (obj as Scavenger)?.reactionSkill ?? 0f;
 	#endregion
 	
+	public static bool IDLabelVisible = false;
+	public static bool StatsVisible = false;
+	
 	public OverheadID(PhysicalObject o) {
 		(obj = o).room.AddObject(this);
 		VisibleID.Labels.Add(o, this);
@@ -104,7 +107,7 @@ public class OverheadID: CosmeticSprite {
 		|| !obj.room.BeingViewed
 		|| (!Cfg.Objects.Value && obj is not Creature)
 		|| (Cfg.Dead.Value && obj is Creature c && c.dead)
-		|| (!Cfg.ShowIDs.Value && !Cfg.Attrs.Value)
+		|| (!IDLabelVisible && !StatsVisible)
 		|| (obj is Overseer ovr && (ovr.mode == Overseer.Mode.SittingInWall || ovr.mode == Overseer.Mode.Withdrawing || ovr.mode == Overseer.Mode.Zipping))
 		|| (obj is Fly fly && fly.BitesLeft is 0)
 		|| (obj is Player ply && !ply.isNPC && (!Cfg.Players.Value && !Cfg.PlyrAttr.Value))) {
@@ -116,9 +119,9 @@ public class OverheadID: CosmeticSprite {
 			Vec2 t = Vec2.Lerp(op_chunk.lastPos, op_chunk.pos, time) - campos;
 			(top.x, top.y) = (t.x, t.y + 53f);
 			
-			lbl.isVisible = Cfg.ShowIDs.Value;
-			attr.isVisible = Cfg.Attrs.Value;
-			stat.isVisible = Cfg.Attrs.Value && (obj is Scavenger);
+			lbl.isVisible = IDLabelVisible;
+			attr.isVisible = StatsVisible;
+			stat.isVisible = StatsVisible && (obj is Scavenger);
 			
 			if(obj is Player p && !p.isNPC) {
 				lbl.isVisible = lbl.isVisible && Cfg.Players.Value;
