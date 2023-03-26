@@ -1,4 +1,4 @@
-namespace fish.rainworld.visibleid;
+namespace fish.Mods.RainWorld.VisibleID;
 
 static class Extensions {
 	public static BepInEx.Logging.ManualLogSource Logger { private get; set; }

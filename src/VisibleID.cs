@@ -11,17 +11,17 @@ global using KeyCode = UnityEngine.KeyCode;
 global using Keys = UnityEngine.KeyCode;
 global using Vec2 = UnityEngine.Vector2;
 
-global using static fish.rainworld.visibleid.Extensions;
+global using static fish.Mods.RainWorld.VisibleID.Extensions;
 
 #pragma warning disable CS0618
 [assembly: System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.RequestMinimum, SkipVerification = true)]
 #pragma warning restore CS0618
 
-namespace fish.rainworld.visibleid;
+namespace fish.Mods.RainWorld.VisibleID;
 
 [BepInEx.BepInPlugin(Id, Name, Version)]
 public class VisibleID: BepInEx.BaseUnityPlugin {
-	public const string Id      = $"{nameof(fish)}.{nameof(visibleid)}";
+	public const string Id      = "fish.visibleid";
 	public const string Name    = "Visible ID";
 	public const string Version = "2.6";
 	

@@ -1,4 +1,4 @@
-namespace fish.rainworld.visibleid;
+namespace fish.Mods.RainWorld.VisibleID;
 
 public sealed class Cfg: OptionInterface {
 	Cfg() {}
@@ -28,7 +28,7 @@ public sealed class Cfg: OptionInterface {
 	
 	public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	
-	static Configurable<T> bind<T>(string name, T init, string desc = null) => Instance.config.Bind<T>($"{nameof(fish)}_{nameof(visibleid)}_{name}", init, desc is null ? null : new ConfigurableInfo(desc));
+	static Configurable<T> bind<T>(string name, T init, string desc = null) => Instance.config.Bind<T>($"fish_visibleid_{name}", init, desc is null ? null : new ConfigurableInfo(desc));
 	
 	public override void Initialize()
 		=> Tabs = new Menu.Remix.MixedUI.OpTab[] {

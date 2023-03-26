@@ -1,4 +1,4 @@
-namespace fish.rainworld.visibleid;
+namespace fish.Mods.RainWorld.VisibleID;
 
 public class OverheadID: CosmeticSprite {
 	PhysicalObject obj;

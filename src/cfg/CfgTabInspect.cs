@@ -1,4 +1,4 @@
-namespace fish.rainworld.visibleid;
+namespace fish.Mods.RainWorld.VisibleID;
 using Menu.Remix.MixedUI;
 
 public class CfgTabInspect: CfgTab {
