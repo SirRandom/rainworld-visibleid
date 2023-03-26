@@ -81,46 +81,26 @@ public class VisibleID: BepInEx.BaseUnityPlugin {
 	}
 	
 	public void Update() {
-		switch(Cfg.ToggleIDMode.Value) {
+		InterpretKeyBind(Cfg.ToggleIDMode,    Cfg.ToggleID,    ref OverheadID.CreatureIDLabelVisible);
+		InterpretKeyBind(Cfg.ToggleObjIDMode, Cfg.ToggleObjID, ref OverheadID.ObjectIDLabelVisible);
+		InterpretKeyBind(Cfg.ToggleStatsMode, Cfg.ToggleStats, ref OverheadID.StatsVisible);
+	}
+	
+	void InterpretKeyBind(Configurable<int> mode, Configurable<KeyCode> key, ref bool target) {
+		switch(mode.Value) {
 			case (int) Cfg.KeybindMode.Toggle:
-				if(Input.anyKeyDown && Input.GetKeyDown(Cfg.ToggleID.Value)) {
-					OverheadID.IDLabelVisible = !OverheadID.IDLabelVisible;
-					Info($"{(OverheadID.IDLabelVisible? "SHOWING" : "HIDING")} IDS");
-				}
+				if(Input.anyKeyDown && Input.GetKeyDown(key.Value))
+					target = !target;
 				break;
 			
 			case (int) Cfg.KeybindMode.Held:
-				bool previous_value = OverheadID.IDLabelVisible;
-				OverheadID.IDLabelVisible = Input.GetKey(Cfg.ToggleID.Value);
-				if(previous_value != OverheadID.IDLabelVisible)
-					Info($"{(OverheadID.IDLabelVisible? "SHOWING" : "HIDING")} IDS");
+				target = Input.GetKey(key.Value);
 				break;
 			
 			default:
-				Error($"Invalid {nameof(Cfg.KeybindMode)} for {nameof(Cfg.ToggleIDMode)}; defaulting to {nameof(Cfg.KeybindMode.Toggle)}");
-				Cfg.ToggleIDMode.Value = (int) Cfg.KeybindMode.Toggle;
-				Cfg.Instance.config.Save();
-				goto case (int) Cfg.KeybindMode.Toggle;
-		}
-		switch(Cfg.ToggleStatsMode.Value) {
-			case (int) Cfg.KeybindMode.Toggle:
-				if(Input.anyKeyDown && Input.GetKeyDown(Cfg.ToggleStats.Value)) {
-					OverheadID.StatsVisible = !OverheadID.StatsVisible;
-					Info($"{(OverheadID.StatsVisible? "SHOWING" : "HIDING")} PERSONALITIES & SKILLS");
-				}
-				break;
-			
-			case (int) Cfg.KeybindMode.Held:
-				bool previous_value = OverheadID.StatsVisible;
-				OverheadID.StatsVisible = Input.GetKey(Cfg.ToggleStats.Value);
-				if(previous_value != OverheadID.StatsVisible)
-					Info($"{(OverheadID.StatsVisible? "SHOWING" : "HIDING")} PERSONALITIES & SKILLS");
-				break;
-			
-			default:
-				Error($"Invalid {nameof(Cfg.KeybindMode)} for {nameof(Cfg.ToggleStatsMode)}; defaulting to {nameof(Cfg.KeybindMode.Toggle)}");
-				Cfg.ToggleStatsMode.Value = (int) Cfg.KeybindMode.Toggle;
-				Cfg.Instance.config.Save();
+				Error($"Invalid {nameof(Cfg.KeybindMode)} for bound key {key}; defaulting to {nameof(Cfg.KeybindMode.Toggle)}");
+				mode.Value = (int) Cfg.KeybindMode.Toggle;
+				Cfg.Save();
 				goto case (int) Cfg.KeybindMode.Toggle;
 		}
 	}

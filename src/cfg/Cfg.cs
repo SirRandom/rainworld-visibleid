@@ -13,10 +13,12 @@ public sealed class Cfg: OptionInterface {
 		Held = 1,
 	}
 	
-	public static Configurable<KeyCode> ToggleID        { get; } = bind(nameof(ToggleID       ), Keys.Tab, "The key that should toggle ID display on and off");
-	public static Configurable<int>     ToggleIDMode    { get; } = bind(nameof(ToggleIDMode   ), 0,        "The mode for the ToggleID keybind. Should it be a toggle button or a \"hold\" button?");
-	public static Configurable<KeyCode> ToggleStats     { get; } = bind(nameof(ToggleStats    ), Keys.End, "The key that should toggle personality & traits display on and off");
-	public static Configurable<int>     ToggleStatsMode { get; } = bind(nameof(ToggleStatsMode), 0,        "The mode for the ToggleStats keybind. Should it be a toggle button or a \"hold\" button?");
+	public static Configurable<KeyCode> ToggleID          { get; } = bind(nameof(ToggleID         ), Keys.Tab, "The key that should toggle ID display on and off for creatures");
+	public static Configurable<int>     ToggleIDMode      { get; } = bind(nameof(ToggleIDMode     ), 0,        $"The mode for the {nameof(ToggleID)} keybind. Should it be a toggle (0) button or a \"hold\" (1) button?");
+	public static Configurable<KeyCode> ToggleObjID       { get; } = bind(nameof(ToggleObjID      ), Keys.Tab, "The key that should toggle ID display on and off for objects");
+	public static Configurable<int>     ToggleObjIDMode   { get; } = bind(nameof(ToggleObjIDMode  ), 0,        $"The mode for the {nameof(ToggleObjID)} keybind. Should it be a toggle (0) button or a \"hold\" (1) button?");
+	public static Configurable<KeyCode> ToggleStats       { get; } = bind(nameof(ToggleStats      ), Keys.End, "The key that should toggle personality & traits display on and off");
+	public static Configurable<int>     ToggleStatsMode   { get; } = bind(nameof(ToggleStatsMode  ), 0,        $"The mode for the {nameof(ToggleStats)} keybind. Should it be a toggle (0) button or a \"hold\" (1) button?");
 	
 	public static Configurable<bool>    ShowIDs         { get; } = bind(nameof(ShowIDs        ), false,    "Should ID labels be on at the start of the game?");
 	public static Configurable<bool>    Attrs           { get; } = bind(nameof(Attrs          ), false,    "Should the personality & skills readout be on at the start of the game?");
@@ -29,6 +31,8 @@ public sealed class Cfg: OptionInterface {
 	public static Configurable<string> Names { get; } = bind(nameof(Names), "");
 	
 	static Configurable<T> bind<T>(string name, T init, string desc = null) => Instance.config.Bind<T>($"fish_visibleid_{name}", init, desc is null ? null : new ConfigurableInfo(desc));
+	
+	public static void Save() => Instance.config.Save();
 	
 	public override void Initialize()
 		=> Tabs = new Menu.Remix.MixedUI.OpTab[] {
