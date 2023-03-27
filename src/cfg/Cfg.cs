@@ -26,6 +26,7 @@ public sealed class Cfg: OptionInterface {
 	public static Configurable<bool> Spoilers { get; } = bind("Spoilers" , false, "Show potential spoilers?");
 	
 	public static Configurable<string> CfgNames { get; } = bind("Names", "");
+	public static Configurable<string> OldNames { get; } = bind(nameof(OldNames), "");
 	
 	public static NameMap Names;
 	
@@ -45,6 +46,7 @@ public sealed class Cfg: OptionInterface {
 		Info($"Beginning early config setup");
 		if(ConfigVersion.Value is not SupportedConfigVersion) {
 			Info($"  Migrating from {nameof(ConfigVersion)} {ConfigVersion.Value} to {SupportedConfigVersion}");
+				OldNames.Value = CfgNames.Value;
 				if(ConfigVersion.Value < 1) CfgNames.Value = (Names = new(CfgNames.Value, ConfigVersion.Value)).ToString();
 				ConfigVersion.Value = SupportedConfigVersion;
 				Save();
