@@ -31,3 +31,12 @@ class Seeded: IDisposable {
 	
 	public void Dispose() => Rand.state = tmpState;
 }
+
+public enum KeybindMode: int {
+	Toggle = 0,
+	Held = 1,
+}
+
+class FContainer: global::FContainer {
+	public FNode this[int i] => base.GetChildAt(i);
+}
