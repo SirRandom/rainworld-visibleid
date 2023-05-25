@@ -5,7 +5,11 @@ public class CfgTabInspect: CfgTab {
 	Configurable<int> n1_id = CosmeticBind(0);
 	
 	public CfgTabInspect(): base("Inspect") {
-		bool slugpups = Custom.rainWorld.progression.miscProgressionData.beaten_Gourmand_Full || MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value || Cfg.Spoilers.Value;
+		bool slugpups = ModManager.MSC && (
+				Custom.rainWorld.progression.miscProgressionData.beaten_Gourmand_Full
+				|| MoreSlugcats.MoreSlugcats.chtUnlockSlugpups.Value
+				|| Cfg.Spoilers.Value
+			);
 		
 		var tbx_2_id = new Menu.Remix.MixedUI.OpTextBox(n1_id, new(80f, 520f), 100f) { description = "Type an ID number to inspect its stats" };
 		var inspect_lbls = new Menu.Remix.MixedUI.OpLabel[] {
