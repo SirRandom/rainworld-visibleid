@@ -4,9 +4,9 @@ static class Hooks {
 	public static void HookEverything() {
 		On.PhysicalObject.Update += (o,s,eu) => { o(s,eu); SafeAttachOverheadID(s); };
 		
+		On.RainWorldGame.Win         += (o,s, malnourished, fromWarpPoint) => { o(s, malnourished, fromWarpPoint); ClearLabels(); };
 		On.RainWorldGame.ExitGame    += (o,s, death, quit)  => { o(s, death, quit);  ClearLabels(); };
 		On.RainWorldGame.ExitToMenu  += (o,s)               => { o(s);               ClearLabels(); };
-		On.RainWorldGame.Win         += (o,s, malnourished, fromWarpPoint) => { o(s, malnourished, fromWarpPoint); ClearLabels(); };
 		On.ArenaSitting.NextLevel    += (o,s, procmgr)      => { o(s, procmgr);      ClearLabels(); };
 		On.ArenaSitting.SessionEnded += (o,s, session)      => { o(s, session);      ClearLabels(); };
 		
