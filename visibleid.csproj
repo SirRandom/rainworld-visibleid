@@ -9,7 +9,7 @@
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<OutputPath>$(MSBuildProjectDirectory)\bin</OutputPath>
 		<IntermediateOutputPath>$(MSBuildProjectDirectory)\obj</IntermediateOutputPath>
-		<rwroot>C:\Program Files (x86)\Steam\steamapps\common\Rain World</rwroot>
+		<rwroot>\home\fish\.xdg\data\Steam\steamapps\common\Rain World</rwroot>
 	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="BepInEx"              ><HintPath>$(rwroot)\BepInEx\core\BepInEx.dll</HintPath></Reference>
