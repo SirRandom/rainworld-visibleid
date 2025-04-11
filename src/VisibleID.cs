@@ -23,7 +23,7 @@ namespace fish.Mods.RainWorld.VisibleID;
 public class VisibleID: BepInEx.BaseUnityPlugin {
 	public const string Id      = "fish.visibleid";
 	public const string Name    = "Visible ID";
-	public const string Version = "2.7";
+	public const string Version = "3.0";
 	
 	public static VisibleID Instance { get; private set; }
 	
