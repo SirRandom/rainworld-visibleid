@@ -35,12 +35,12 @@ public sealed class Cfg: OptionInterface {
 	public static void Save() => Instance.config.Save();
 	
 	public override void Initialize()
-		=> Tabs = new Menu.Remix.MixedUI.OpTab[] {
+		=> Tabs = [
 			new CfgTabMain(),
 			new CfgTabKeybinds(),
 			new CfgTabNames(),
 			new CfgTabInspect(),
-		};
+		];
 	
 	public static void EarlySetup_RunASAP() {
 		Info($"Beginning early config setup");
