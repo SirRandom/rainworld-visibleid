@@ -26,5 +26,6 @@
 		<Copy SourceFiles="$(TargetDir)$(TargetName)$(TargetExt)" DestinationFolder="$(rwroot)\RainWorld_Data\StreamingAssets\mods\$(TargetName)\plugins"/>
 		<Copy SourceFiles="$(ProjectDir)modinfo.json" DestinationFolder="$(rwroot)\RainWorld_Data\StreamingAssets\mods\$(TargetName)"/>
 		<Copy SourceFiles="$(ProjectDir)thumbnail.png" DestinationFolder="$(rwroot)\RainWorld_Data\StreamingAssets\mods\$(TargetName)"/>
+		<Exec Command="7z a $(TargetDir)fish.visibleid-0000.zip '$(rwroot)/RainWorld_Data/StreamingAssets/mods/$(TargetName)/'" />
 	</Target>
 </Project>
