@@ -3,7 +3,7 @@ using Menu.Remix.MixedUI;
 
 public class CfgTabNames: CfgTab {
 	Configurable<string> n0_lbl  = CosmeticBind("");
-	Configurable<int>    n0_id   = CosmeticBind( 0);
+	Configurable<string> n0_id   = CosmeticBind("");
 	Configurable<string> n0_name = CosmeticBind("");
 	Configurable<string> n0_crea = CosmeticBind("");
 	
