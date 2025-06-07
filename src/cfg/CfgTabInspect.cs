@@ -2,7 +2,7 @@ namespace fish.Mods.RainWorld.VisibleID;
 using Menu.Remix.MixedUI;
 
 public class CfgTabInspect: CfgTab {
-	Configurable<int> n1_id = CosmeticBind(0);
+	Configurable<string> n1_id = CosmeticBind("");
 	
 	public CfgTabInspect(): base("Inspect") {
 		bool slugpups = ModManager.MSC && (
